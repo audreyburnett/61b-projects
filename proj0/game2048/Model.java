@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author audreyburnett
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -116,10 +116,56 @@ public class Model extends Observable {
      *    and the trailing tile does not.
      */
     public void tilt(Side side) {
-        // TODO: Fill in this function.
+        // modifies the board instance so that the tiles merge/move in the proper direction and the score instance variable updates to reflect the total value of tile merges
+        _board.setViewingPerspective(side);
 
+        for (int i = 0; i < _board.size(); i += 1) {
+//            int top = _board.size() -1;
+            for (int j = _board.size() - 1; j >= 0; j -= 1) {
+                Tile t = _board.tile(i, j);
+                if (_board.tile(i, j) == null) {
+                    continue;
+                }
+                else if (j!=3){
+                    int row = j;
+                    int nextrow = j;
+//                    int x = _board.size() - (row + 1);
+                    while (nextrow < 3) {
+                        if (_board.tile(i, nextrow+1) == null) {
+                            nextrow += 1;
+                        } else if (_board.tile(i, nextrow+1).value() == _board.tile(i, row).value()) {
+                            nextrow += 1;
+                            break;
+                        }
+                        else{
+                            break;
+                        }
+
+                    _board.move(i, nextrow, t);
+                    }
+                }
+            }
+        }
+
+        _board.setViewingPerspective(Side.NORTH);
         checkGameOver();
     }
+//if (_board.tile(i, j) != null){
+////                    if (_board.tile(i, j) != null && _board.move(i, top, t)) {
+//                    _board.move(i, top, t);
+//                    if (top !=3 && _board.tile(i, j).value() == _board.tile(i, top+1).value()) {
+//                        _board.move(i, top+1, t);
+//                        _score += _board.tile(i, top+1).value();
+//                        top -= 1;
+//                    }
+//                    else {
+//                        top -= 1;
+//                    }
+//                        //_board.tile(i, (j+1)).merge(i, (j + 1), _board.tile(i, j));
+////                        top -= 1;
+////                    } else {
+////                        top -= 1;
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -137,7 +183,14 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        // returns true if any of the tiles in the board are null
+        for (int i = 0; i < b.size(); i += 1) {
+            for (int j = 0; j < b.size(); j += 1) {
+                if (b.tile(i, j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +200,17 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        // return true if any of the tiles in the board are equal to the winning tile value 2048
+        for (int i = 0; i < b.size(); i += 1) {
+            for (int j = 0; j < b.size(); j += 1) {
+                if (b.tile(i, j) == null){
+                    continue;
+                }
+                if (b.tile(i,j).value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,9 +221,27 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        // return true if there are any valid moves
+        if (emptySpaceExists(b)) {
+            return true;
+        }
+        for (int i = 0; i < b.size() - 1; i += 1) {
+            for (int j = 0; j < b.size() ; j += 1) {
+                if (b.tile(i, j).value() == b.tile((i + 1), j).value()) {
+                    return true;
+                }
+            }
+        }
+        for (int i = 0; i < b.size() ; i += 1) {
+            for (int j = 0; j < b.size() - 1; j += 1) {
+                if (b.tile(i, j).value() == b.tile((i), (j + 1)).value()) {
+                    return true;
+                }
+            }
+        }
         return false;
-    }
+        }
+
 
     /** Returns the model as a string, used for debugging. */
     @Override
