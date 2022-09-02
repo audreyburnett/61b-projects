@@ -119,6 +119,7 @@ public class Model extends Observable {
         // modifies the board instance so that the tiles merge/move in the proper direction and the score instance variable updates to reflect the total value of tile merges
         _board.setViewingPerspective(side);
 
+        
         for (int i = 0; i < _board.size(); i += 1) {
 //            int top = _board.size() -1;
             for (int j = _board.size() - 1; j >= 0; j -= 1) {
@@ -131,21 +132,27 @@ public class Model extends Observable {
                     int nextrow = j;
 //                    int x = _board.size() - (row + 1);
                     while (nextrow < 3) {
-                        if (_board.tile(i, nextrow+1) == null) {
+                        if (_board.tile(i, nextrow + 1) == null) {
                             nextrow += 1;
-                        } else if (_board.tile(i, nextrow+1).value() == _board.tile(i, row).value()) {
-                            nextrow += 1;
+                        } else {
                             break;
                         }
-                        else{
-                            break;
+                    }
+                    if (nextrow == 3) {
+                        _board.move(i, nextrow, t);
+                    }
+                    else if (_board.tile(i, nextrow+1) != null) {
+                        if (_board.tile(i, nextrow+1).value() == _board.tile(i, row).value()) {
+                            nextrow += 1;
+                            _score += _board.tile(i, nextrow).value() *2;
+                            }
+                        _board.move(i, nextrow, t);
                         }
 
-                    _board.move(i, nextrow, t);
+
                     }
                 }
             }
-        }
 
         _board.setViewingPerspective(Side.NORTH);
         checkGameOver();
