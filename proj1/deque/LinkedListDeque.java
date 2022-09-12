@@ -58,12 +58,72 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque(){
-        String items = "";
-        TNode destructive = sentinel;
-        int tempsize = size;
-        while (tempsize > 0){
-            System.out.println(destructive.next.item);
-            
+        TNode current = sentinel.next;
+        while (current != sentinel){
+            System.out.print(current.item + " ");
+            current = current.next;
+        }
+        System.out.println(" ");
+    }
+
+    public T removeFirst(){
+        if (size == 0){
+            return null;
+        } else{
+            T removed = sentinel.next.item;
+            sentinel.next.prev = sentinel.next;
+            sentinel.next = sentinel.next.next;
+            sentinel.next.prev.next = sentinel.next.prev;
+            sentinel.next.prev = sentinel;
+            size -= 1;
+            return removed;
+        }
+    }
+
+    public T removeLast(){
+        if (size == 0){
+            return null;
+        } else {
+             T removed = sentinel.prev.item;
+             sentinel.prev.next = sentinel.prev;
+             sentinel.prev = sentinel.prev.prev;
+             sentinel.prev.next.prev = sentinel.prev.next;
+             sentinel.prev.prev = sentinel;
+             size -= 1;
+             return removed;
+        }
+    }
+
+    public T get(int index){
+        if (size == 0){
+            return null;
+        }
+        if ((index+1)>size){
+            return null;
+        } else{
+            TNode current = sentinel;
+            for(int pointer = 0; pointer <= index; pointer+=1){
+                current = current.next;
+            }
+            return current.item;
+        }
+    }
+
+    public T getRecursive(int index){
+        return getRecursiveHelper(index, sentinel.next);
+    }
+
+    public T getRecursiveHelper(int index, TNode node){
+        if (size == 0){
+            return null;
+        }
+        if ((index+1)>size){
+            return null;
+        } else if (index == 0){
+            return node.item;
+        }
+        else{
+            return getRecursiveHelper(index -1, node.next);
         }
     }
 
