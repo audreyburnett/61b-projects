@@ -160,7 +160,7 @@ public class LinkedListDeque<T> {
      * @param node
      * It returns the item at a given index using recursion.
      * If no such item exists, it returns null. */
-    public T getRecursiveHelper(int index, TNode node) {
+    private T getRecursiveHelper(int index, TNode node) {
         if (size == 0) {
             return null;
         }
