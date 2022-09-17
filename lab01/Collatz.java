@@ -2,7 +2,7 @@
  *  @author YOUR NAME HERE
  */
 public class Collatz {
-    
+
     /** Returns the nextNumber in a Collatz sequence. */
     public static int nextNumber(int n) {
         /** returns the next number in the Collatz sequence. if n is even, returns n/2. if n is odd, the next number is 3n + 1.*/
