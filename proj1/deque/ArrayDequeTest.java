@@ -59,8 +59,10 @@ public class ArrayDequeTest {
             test4.addLast(i);
             test5.addLast(i);
         }
-        assertTrue(test4.equals(test5));
-        assertFalse(test4.equals(test6));
+        assertTrue(test4.size() == 100);
+        assertTrue(test5.size() == 100);
+        assertEquals(test4, test5);
+        assertNotEquals(test4, test6);
 
     }
 
