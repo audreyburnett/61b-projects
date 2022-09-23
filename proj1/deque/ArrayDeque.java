@@ -13,19 +13,38 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
-    public void resize(int capacity){
+    public void resizeAdd(int capacity){
         T[] a = (T[]) new Object[capacity];
         T[] b = (T[]) new Object[size];
         System.arraycopy(items, nextLast, b, 0, size-nextLast);
-        System.arraycopy(items, nextFirst, b, size-nextLast, size- (size-nextLast));
-        System.arraycopy(items, 0, a, 0, size);
+        System.arraycopy(items, 0, b, size-nextLast, size- (size-nextLast));
+        System.arraycopy(b, 0, a, 0, size);
         items = a;
         nextFirst = items.length - 1;
         nextLast = size;
     }
-    public void addFirst(T item) {
+
+    public void resizeRemove(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        int length1;
+        int length2;
+        if (nextFirst > nextLast){
+            length1 = items.length - (nextFirst + 1);
+            length2 = size - length1;
+        } else{
+            length1 = nextLast - (nextFirst+1);
+            length2 = 0;
+        }
+        System.arraycopy(items, (nextFirst + 1) % items.length, a, 0, length1);
+        System.arraycopy(items, 0, a, length1, length2);
+        items = a;
+        nextFirst = items.length - 1;
+        nextLast = size;
+    }
+
+        public void addFirst(T item) {
         if (size == items.length) {
-            resize(size*4);
+            resizeAdd(size*2);
         }
         items[nextFirst] = item;
         if (nextFirst == 0) {
@@ -38,7 +57,7 @@ public class ArrayDeque<T> {
 
     public void addLast(T item){
         if (items.length == size){
-            resize(size*4);
+            resizeAdd(size*2);
         }
         items[nextLast] = item;
         if (nextLast + 1 == items.length){
@@ -72,8 +91,8 @@ public class ArrayDeque<T> {
         if(size == 0){
             return null;
         }
-        if(items.length >= 16 && (items.length/(size - 1)) < items.length/4){
-            resize(size*4);
+        if(items.length >= 16 && size < items.length/4){
+            resizeRemove(size*4);
         }
         int first;
         if(nextFirst == items.length - 1){
@@ -92,7 +111,9 @@ public class ArrayDeque<T> {
         if(size == 0){
             return null;
         }
-        //resize
+        if(items.length >= 16 && size < items.length/4) {
+            resizeRemove(size * 4);
+        }
         int last;
         if(nextLast == 0){
             last = items.length -1;
