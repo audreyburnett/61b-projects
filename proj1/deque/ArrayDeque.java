@@ -132,10 +132,10 @@ public class ArrayDeque<T> {
         if (size == 0){
             return null;
         }
-        if ((index+1) > size){
+        if (index >= size){
             return null;
         }
-        if (nextFirst == 0){
+        if (nextFirst == items.length - 1){
             newIndex = index;
         } else{
             newIndex = (nextFirst + 1) + index;
