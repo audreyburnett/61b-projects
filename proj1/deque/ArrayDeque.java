@@ -42,7 +42,7 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 
-        public void addFirst(T item) {
+    public void addFirst(T item) {
         if (size == items.length) {
             resizeAdd(size*2);
         }
@@ -135,7 +135,7 @@ public class ArrayDeque<T> {
         if ((index+1) > size){
             return null;
         }
-        if (nextFirst == items.length-1){
+        if (nextFirst == 0){
             newIndex = index;
         } else{
             newIndex = (nextFirst + 1) + index;
