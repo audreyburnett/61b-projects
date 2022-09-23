@@ -135,11 +135,12 @@ public class ArrayDeque<T> {
         if (index >= size){
             return null;
         }
-        if (nextFirst == items.length - 1){
-            newIndex = index;
+        if (((nextFirst + 1) + index) >= size()){
+            newIndex = (-1)*(size - ((nextFirst + 1) + index));
         } else{
-            newIndex = (nextFirst + 1) + index;
+            newIndex = ((nextFirst + 1) + index);
         }
+//        System.out.println(newIndex);
         return items[newIndex];
     }
 

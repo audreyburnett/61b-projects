@@ -23,16 +23,48 @@ public class ArrayDequeTest {
     @Test
     public void addFirstBigTest() {
         ArrayDeque<Integer> test2 = new ArrayDeque();
-        test2.printDeque();
-        for(int i = 0; i <= 16; i ++) {
-            test2.addFirst(i);
+        for(int i = 0; i < 100; i ++) {
+            test2.addLast(i);
 //            test2.printDeque();
 //            System.out.println(test2);
         }
-        assertTrue(test2.size() == 17);
+        assertTrue(test2.size() == 100);
         test2.printDeque();
 
     }
+
+    @Test public void removeBigTest() {
+        ArrayDeque<Integer> test3 = new ArrayDeque();
+        for (int i = 0; i < 100; i++) {
+            test3.addLast(i);
+        }
+
+        assertTrue(test3.size() == 100);
+        for (int i = 0; i < 100; i++) {
+            assertEquals(i, (int) test3.removeFirst());
+        }
+
+        assertTrue(test3.size() == 0);
+
+        assertTrue(test3.removeLast() == null);
+
+    }
+
+    @Test public void equalsTest(){
+        ArrayDeque<Integer> test4 = new ArrayDeque();
+        ArrayDeque<Integer> test5 = new ArrayDeque();
+        ArrayDeque<Integer> test6 = new ArrayDeque();
+
+        for (int i = 0; i < 100; i++){
+            test4.addLast(i);
+            test5.addLast(i);
+        }
+        assertTrue(test4.equals(test5));
+        assertFalse(test4.equals(test6));
+
+    }
+
+
 //        for (int i = 0; i < 8; i++) {
 //            test1.addFirst(i);
 //            System.out.println((int) test1.get(0));
