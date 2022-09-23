@@ -86,17 +86,51 @@ public class ArrayDeque<T> {
             return null;
         }
         //resize
+        int first;
+        if(nextFirst == items.length - 1){
+            first = 0;
+        } else{
+            first = nextFirst + 1;
+        }
+        T item = items[first];
+        items[first] = null;
+        nextFirst = first;
+        size -= 1;
+        return item;
+    }
+
+    public T removeLast(){
+        if(size == 0){
+            return null;
+        }
+        //resize
+        int last;
+        if(nextLast == 0){
+            last = items.length -1;
+        } else{
+            last = nextLast -1;
+        }
+        T item = items[last];
+        items[last] = null;
+        nextLast = last;
+        size -= 1;
+        return item;
     }
 
     public T get(int index){
+        int newIndex;
         if (size == 0){
             return null;
         }
         if ((index+1) > size){
             return null;
-        } else{
-            return items[index];
         }
+        if (nextFirst == items.length-1){
+            newIndex = index;
+        } else{
+            newIndex = (nextFirst + 1) + index;
+        }
+        return items[newIndex];
     }
 
 
