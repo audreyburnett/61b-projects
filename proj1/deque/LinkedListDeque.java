@@ -2,7 +2,7 @@ package deque;
 
 /**This is a linked list deque class with a constructor and methods.
  * @author audreyburnett*/
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     /**@author audreyburnett
      * This is a TNode class containing a TNode constructor
      * and private variables item, next, and prev.*/
@@ -44,6 +44,7 @@ public class LinkedListDeque<T> {
     /**@param item
      * This method adds an item of type T to the front of the deque.
      * Assume that item is never null.*/
+    @Override
     public void addFirst(T item) {
         if (size == 0) {
             sentinel.next = new TNode(sentinel, item, sentinel);
@@ -59,6 +60,7 @@ public class LinkedListDeque<T> {
     /**@param item
      * This method adds an item of type T to the back of the deque.
      * Assume item is never null.*/
+    @Override
     public void addLast(T item) {
         if (size == 0) {
             addFirst(item);
@@ -70,16 +72,8 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /**This method returns true if the deque is empty, and false otherwise.*/
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-
-    }
-
     /**This method returns the number of items in the deque.*/
+    @Override
     public int size() {
         return size;
     }
@@ -88,6 +82,7 @@ public class LinkedListDeque<T> {
     /**This method prints the items in the deque from first to last,
      * separated by a space. Once all the items have been printed,
      * it prints out a new line.*/
+    @Override
     public void printDeque() {
         TNode current;
         current = new TNode(sentinel, sentinel.next.item, sentinel.next.next);
@@ -100,6 +95,7 @@ public class LinkedListDeque<T> {
 
     /**This method removes and returns the item at the front of the deque.
      * If no such item exists, it returns null.*/
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -116,6 +112,7 @@ public class LinkedListDeque<T> {
 
     /**This method removes and returns the item at the back of the deque.
      * If no such item exists, it returns null.*/
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -133,6 +130,7 @@ public class LinkedListDeque<T> {
     /**@param index
      * This method returns the item at a given index using iteration.
      * If no such item exists, it returns null.*/
+    @Override
     public T get(int index) {
         if (size == 0) {
             return null;
