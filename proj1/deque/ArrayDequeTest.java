@@ -66,6 +66,17 @@ public class ArrayDequeTest {
 
     }
 
+    @Test public void resizeTest(){
+        ArrayDeque<Integer> test7 = new ArrayDeque();
+        ArrayDeque<Integer> test8 = new ArrayDeque();
+        for (int i = 0; i < 9; i++){
+            test7.addLast(i);
+//            assertTrue(test7.get(i) == i);
+        }
+        assertTrue(test7.get(8) == 8);
+
+    }
+
 
 //        for (int i = 0; i < 8; i++) {
 //            test1.addFirst(i);

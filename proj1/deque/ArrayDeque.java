@@ -13,7 +13,7 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
-    public void resizeAdd(int capacity) {
+    private void resizeAdd(int capacity) {
         T[] a = (T[]) new Object[capacity];
         T[] b = (T[]) new Object[size];
         System.arraycopy(items, nextLast, b, 0, size - nextLast);
@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 
-    public void resizeRemove(int capacity) {
+    private void resizeRemove(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int length1;
         int length2;
@@ -68,7 +68,7 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
@@ -131,11 +131,7 @@ public class ArrayDeque<T> {
         if (index >= size) {
             return null;
         }
-        if (((nextFirst + 1) + index) >= size()) {
-            newIndex = (-1) * (size - ((nextFirst + 1) + index));
-        } else {
-            newIndex = ((nextFirst + 1) + index);
-        }
+        newIndex = ((nextFirst + 1) + index) % items.length;
         return items[newIndex];
     }
 
