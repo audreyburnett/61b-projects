@@ -170,4 +170,20 @@ public class LinkedListDeque<T> implements Deque<T> {
             return getRecursiveHelper(index - 1, node.next);
         }
     }
+
+    public boolean equals(Object o){
+        if (!(o instanceof Deque)) {
+            return false;
+        } else {
+            Deque<T> cast = (LinkedListDeque<T>) o;
+            for (int i = 0; i < size; i++) {
+                if (get(i) != null) {
+                    if (!(get(i).equals(cast.get(i)))) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }

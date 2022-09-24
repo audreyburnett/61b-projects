@@ -138,12 +138,11 @@ public class ArrayDeque<T> implements Deque<T>{
         return items[newIndex];
     }
 
-    @Override
     public boolean equals(Object o){
-        if (!(o instanceof ArrayDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         } else {
-            ArrayDeque<T> cast = (ArrayDeque<T>) o;
+            Deque<T> cast = (ArrayDeque<T>) o;
             for (int i = 0; i < size; i++) {
                 if (get(i) != null) {
                     if (!(get(i).equals(cast.get(i)))) {
