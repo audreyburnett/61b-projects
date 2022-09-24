@@ -1,13 +1,37 @@
 package deque;
 
-public class ArrayDeque<T> implements Deque<T>{
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
+    public Iterator<T> iterator() {
+        return new ArraySetIterator();
+    }
+
+    private class ArraySetIterator implements Iterator<T> {
+        private int wizPos;
+
+        public ArraySetIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = items[wizPos];
+            wizPos += 1;
+            return returnItem;
+        }
+    }
     private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
+    private static final int DEFAULT_SIZE = 8;
 
     public ArrayDeque() {
-        items = (T[]) new Object[8];
+        items = (T[]) new Object[DEFAULT_SIZE];
         nextFirst = 0;
         nextLast = 1;
         size = 0;
@@ -81,11 +105,12 @@ public class ArrayDeque<T> implements Deque<T>{
 
     @Override
     public T removeFirst() {
+        int min = 4;
         if (size == 0) {
             return null;
         }
-        if (items.length >= 16 && size < items.length / 4) {
-            resizeRemove(size * 4);
+        if (items.length >= DEFAULT_SIZE * 2 && size < items.length / min) {
+            resizeRemove(size * min);
         }
         int first;
         if (nextFirst == items.length - 1) {
@@ -102,11 +127,12 @@ public class ArrayDeque<T> implements Deque<T>{
 
     @Override
     public T removeLast() {
+        int min = 4;
         if (size == 0) {
             return null;
         }
-        if (items.length >= 16 && size < items.length / 4) {
-            resizeRemove(size * 4);
+        if (items.length >= DEFAULT_SIZE * 2 && size < items.length / min) {
+            resizeRemove(size * min);
         }
         int last;
         if (nextLast == 0) {
@@ -134,7 +160,10 @@ public class ArrayDeque<T> implements Deque<T>{
         return items[newIndex];
     }
 
-    public boolean equals(Object o){
+    /**@param o
+     * This method returns true if object o is equal
+     * to the array deque instance.*/
+    public boolean equals(Object o) {
         if (!(o instanceof Deque)) {
             return false;
         } else {

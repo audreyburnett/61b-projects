@@ -1,9 +1,8 @@
 package deque;
 
-import java.sql.Array;
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> extends ArrayDeque<T>{
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private ArrayDeque<T> items;
     private Comparator<T> given;
 
@@ -20,7 +19,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
             T max = this.get(0);
             for (int i = 0; i < this.size(); i++) {
                 if (given.compare(max, this.get(i)) < 0) {
-                        max = this.get(i);
+                    max = this.get(i);
                 }
             }
             return max;
@@ -34,7 +33,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
             T max = this.get(0);
             for (int i = 0; i < this.size() - 1; i++) {
                 if (c.compare(max, get(i)) < 0) {
-                        max = get(i);
+                    max = get(i);
                 }
             }
             return max;

@@ -1,8 +1,34 @@
 package deque;
 
+import java.util.Iterator;
+
 /**This is a linked list deque class with a constructor and methods.
  * @author audreyburnett*/
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
+
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private TNode result;
+
+        public LinkedListIterator() {
+            result = sentinel;
+        }
+
+        public boolean hasNext() {
+            return result.next != null;
+        }
+
+        public T next() {
+            result.prev = sentinel;
+            result = sentinel.next;
+            result.next = sentinel.next.next;
+            return result.next.item;
+        }
+    }
+
     /**@author audreyburnett
      * This is a TNode class containing a TNode constructor
      * and private variables item, next, and prev.*/
@@ -171,7 +197,10 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-    public boolean equals(Object o){
+    /**@param o
+     * This method returns true if object o is equal
+     * to the array deque instance.*/
+    public boolean equals(Object o) {
         if (!(o instanceof Deque)) {
             return false;
         } else {

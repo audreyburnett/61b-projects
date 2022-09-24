@@ -2,7 +2,6 @@ package gh2;
 
 import deque.ArrayDeque;
 import deque.Deque;
-import java.lang.Math;
 
 public class GuitarString {
     /** Constants. Do not change. In case you're curious, the keyword final
@@ -16,7 +15,7 @@ public class GuitarString {
     public GuitarString(double frequency) {
         int capacity = (int) (Math.round(SR / frequency));
         buffer = new ArrayDeque<>();
-        for (int i= 0; i < capacity; i++) {
+        for (int i = 0; i < capacity; i++) {
             buffer.addFirst(0.0);
         }
 
@@ -24,7 +23,7 @@ public class GuitarString {
 
     public void pluck() {
         int sub = buffer.size();
-        for (int i = 0; i < sub; i++){
+        for (int i = 0; i < sub; i++) {
             buffer.removeFirst();
         }
         for (int i = 0; i < sub; i++) {
@@ -35,9 +34,10 @@ public class GuitarString {
 
 
     public void tic() {
+        double energyDecayFactor = 0.996;
         Double first = buffer.get(0);
         buffer.removeFirst();
-        Double newDouble = ((first + buffer.get(0))/2) * 0.996;
+        Double newDouble = ((first + buffer.get(0)) / 2) * energyDecayFactor;
         buffer.addLast(newDouble);
     }
 
