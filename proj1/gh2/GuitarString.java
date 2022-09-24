@@ -34,10 +34,9 @@ public class GuitarString {
 
 
     public void tic() {
-        double energyDecayFactor = 0.996;
         Double first = buffer.get(0);
         buffer.removeFirst();
-        Double newDouble = ((first + buffer.get(0)) / 2) * energyDecayFactor;
+        Double newDouble = ((first + buffer.get(0)) / 2) * DECAY;
         buffer.addLast(newDouble);
     }
 

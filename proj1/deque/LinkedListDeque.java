@@ -5,29 +5,27 @@ import java.util.Iterator;
 /**This is a linked list deque class with a constructor and methods.
  * @author audreyburnett*/
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
-
     public Iterator<T> iterator() {
-        return new LinkedListIterator();
+        return new LinkedListDeque.ArraySetIterator();
     }
 
-    private class LinkedListIterator implements Iterator<T> {
-        private TNode result;
+        private class ArraySetIterator implements Iterator<T> {
+            private int wizPos;
 
-        public LinkedListIterator() {
-            result = sentinel;
-        }
+            public ArraySetIterator() {
+                wizPos = 0;
+            }
 
-        public boolean hasNext() {
-            return result.next != null;
-        }
+            public boolean hasNext() {
+                return wizPos < size;
+            }
 
-        public T next() {
-            result.prev = sentinel;
-            result = sentinel.next;
-            result.next = sentinel.next.next;
-            return result.next.item;
+            public T next() {
+                T returnItem = get(wizPos);
+                wizPos += 1;
+                return returnItem;
+            }
         }
-    }
 
     /**@author audreyburnett
      * This is a TNode class containing a TNode constructor
@@ -204,7 +202,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (!(o instanceof Deque)) {
             return false;
         } else {
-            Deque<T> cast = (LinkedListDeque<T>) o;
+            Deque<T> cast = (Deque<T>) o;
+            if (size() != cast.size()){
+                return false;
+            }
             for (int i = 0; i < size; i++) {
                 if (get(i) != null) {
                     if (!(get(i).equals(cast.get(i)))) {
