@@ -9,23 +9,20 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return new LinkedListDeque.ArraySetIterator();
     }
 
-        private class ArraySetIterator implements Iterator<T> {
-            private int wizPos;
-
-            public ArraySetIterator() {
-                wizPos = 0;
-            }
-
-            public boolean hasNext() {
-                return wizPos < size;
-            }
-
-            public T next() {
-                T returnItem = get(wizPos);
-                wizPos += 1;
-                return returnItem;
-            }
+    private class ArraySetIterator implements Iterator<T> {
+        private int wizPos;
+        ArraySetIterator() {
+            wizPos = 0;
         }
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
 
     /**@author audreyburnett
      * This is a TNode class containing a TNode constructor
@@ -43,7 +40,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
          * @param p
          * This is a TNode constructor. It creates a TNode with value i.
          * It points to TNode n as its next node and TNode p as its prev.*/
-        public TNode(TNode p, T i, TNode n) {
+        TNode(TNode p, T i, TNode n) {
             prev = p;
             item = i;
             next = n;
@@ -203,7 +200,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         } else {
             Deque<T> cast = (Deque<T>) o;
-            if (size() != cast.size()){
+            if (size() != cast.size()) {
                 return false;
             }
             for (int i = 0; i < size; i++) {

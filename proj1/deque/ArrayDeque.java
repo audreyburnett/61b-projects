@@ -10,7 +10,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArraySetIterator implements Iterator<T> {
         private int wizPos;
 
-        public ArraySetIterator() {
+        ArraySetIterator() {
             wizPos = 0;
         }
 
@@ -28,10 +28,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
-    private static final int DEFAULT_SIZE = 8;
+    private static final int SIZE = 8;
 
     public ArrayDeque() {
-        items = (T[]) new Object[DEFAULT_SIZE];
+        items = (T[]) new Object[SIZE];
         nextFirst = 0;
         nextLast = 1;
         size = 0;
@@ -105,11 +105,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeFirst() {
-        int min = DEFAULT_SIZE / 2;
+        int min = SIZE / 2;
         if (size == 0) {
             return null;
         }
-        if (items.length >= DEFAULT_SIZE * 2 && size < items.length / min) {
+        if (items.length >= SIZE * 2 && size < items.length / min) {
             resizeRemove(size * min);
         }
         int first;
@@ -127,11 +127,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        int min = DEFAULT_SIZE / 2;
+        int min = SIZE / 2;
         if (size == 0) {
             return null;
         }
-        if (items.length >= DEFAULT_SIZE * 2 && size < items.length / min) {
+        if (items.length >= SIZE * 2 && size < items.length / min) {
             resizeRemove(size * min);
         }
         int last;
@@ -168,7 +168,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         } else {
             Deque<T> cast = (Deque<T>) o;
-            if (size() != cast.size()){
+            if (size() != cast.size()) {
                 return false;
             }
             for (int i = 0; i < size; i++) {
