@@ -3,7 +3,7 @@ package deque;
 import java.sql.Array;
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> extends ArrayDeque<T> {
+public class MaxArrayDeque<T> extends ArrayDeque<T>{
     private ArrayDeque<T> items;
     private Comparator<T> given;
 
