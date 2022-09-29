@@ -4,7 +4,7 @@ ArrayDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
 
-A: 
+A: I think that a helper method dealing with the case where we need to wrap around to the beginning of the list would have made my solution a lot cleaner. It would have made the code easier to both read and write.
 
 Q: What's something you felt proud of in your code, if anything?
 
@@ -12,11 +12,11 @@ A:
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: I think that something particularly inelegant in my code is that in the cases that I needed to wrap around the list, I used conditional statements. This made my code very long and difficult to keep track of. Also, in a couple cases, I used modulo like the staff solution, but looking back, I feel this made my code a bit inconsistent; for example, I used if/else loops for my addLast function and modulo for my addFirst function.
 
 Q: What did you learn by talking to your partner about writing ArrayDeque?
 
-A:
+A: My partner wrote only one resize function, using a for loop rather than System.array.copy like I did. I had also written two separate resize functions. They simply looped through the size of the array and used the get() function in order to put the items into their proper place in the new array. This solution was very clean and simple, and it made use of other functions that we had already made.
 
 Q: What do you wish you would have known before writing ArrayDeque, if anything?
 
@@ -24,7 +24,7 @@ A:
 
 Q: If you wrote ArrayDeque again, what would you do differently, if anything?
 
-A:
+A: If I wrote ArrayDeque again, I would have written resize after all my other functions because when I first wrote it I didn't catch the case where we needed to wrap around the list.
 
 -----
 
@@ -36,11 +36,11 @@ A:
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: I was proud of the logic implemented in my remove functions because I think that the manipulation using the sentinel was pretty clever and clean.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: I think that my print function could have been more elegant. In general, when I make new nodes I can make the code more concise by doing declaration and assignment at the same time.
 
 Q: What did you learn by talking to your partner about writing LinkedListDeque?
 
@@ -48,11 +48,11 @@ A:
 
 Q: What do you wish you would have known before writing LinkedListDeque, if anything?
 
-A:
+A: I probably would have wanted to know to keep in mind the conditions in which size equals zero for the addfirst and addlast functions because this gave me trouble for a while.
 
 Q: If you wrote LinkedListDeque again, what would you do differently, if anything?
 
-A:
+A: I think I would have tried to write linked list using two sentinel nodes just so that I could see how the logic differed.
 
 -----
 
@@ -60,4 +60,4 @@ Meta:
 
 Q: Did you like this design review process? Anything we should do differently next time?
 
-A: 
+A: I enjoyed seeing other people's implementations of the methods, especially resize. I think that it could be helpful to have ore time to discuss with partners rather than look at staff solution.
