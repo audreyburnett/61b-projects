@@ -7,6 +7,7 @@ public class Percolation {
     private int len;
     private int numberOfOpenSites;
     private WeightedQuickUnionUF group;
+    private WeightedQuickUnionUF group2;
 
 
     public Percolation(int N){
@@ -16,7 +17,8 @@ public class Percolation {
         len = N;
         numberOfOpenSites = 0;
         perc = new int[N][N];
-        group = new WeightedQuickUnionUF(N * N);
+        group = new WeightedQuickUnionUF(N * N + 2);
+        group2 = new WeightedQuickUnionUF(N * N + 1);
     }
     private int modulo(int row, int col) {
         return (((row - 1) * len) + col);
@@ -28,21 +30,26 @@ public class Percolation {
         perc[row][col] = 1;
         if ((row + 1) < len && isOpen(row + 1, col)) {
             group.union(modulo(row, col), modulo(row + 1, col));
+            group2.union(modulo(row, col), modulo(row + 1, col));
         }
         if ((row - 1) >= 0 && isOpen(row - 1, col)) {
             group.union(modulo(row, col), modulo(row - 1, col));
+            group2.union(modulo(row, col), modulo(row - 1, col));
         }
         if ((col + 1) < len && isOpen(row + 1, col)) {
-            group.union(modulo(row, col), modulo(row, col + 1));
+            group.union(modulo(row, col), modulo(row + 1, col));
+            group2.union(modulo(row, col), modulo(row + 1, col));
         }
         if ((col - 1) >= 0 && isOpen(row + 1, col)) {
             group.union(modulo(row, col), modulo(row, col - 1));
+            group2.union(modulo(row, col), modulo(row, col - 1));
         }
         if (row == 0){
-            group.union(modulo(row, col), modulo(-1, -1));
+            group.union(modulo(row, col), modulo(len, len));
+            group2.union(modulo(row, col), modulo(len, len));
         }
         if (row == len - 1){
-            group.union(modulo(row, col), modulo(-2, -2));
+            group.union(modulo(row, col), modulo(len + 1, len + 1));
         }
         numberOfOpenSites += 1;
     }
@@ -56,12 +63,12 @@ public class Percolation {
         if (row >= len || col >= len || row < 0 || col < 0){
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
-        return group.connected(modulo(row, col), modulo(-1, -1));
+        return group2.connected(modulo(row, col), modulo(len, len));
     }
     public int numberOfOpenSites(){
         return numberOfOpenSites;
     }
     public boolean percolates(){
-        return group.connected(modulo(-1, -1), modulo(-2, -2));
+        return group.connected(modulo(len, len), modulo(len + 1, len + 1));
     }
 }
