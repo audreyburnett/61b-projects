@@ -6,7 +6,9 @@ import edu.princeton.cs.algs4.StdRandom;
 public class PercolationStats {
     StdStats stats;
     StdRandom random;
-    double[] lst;
+    private double[] lst;
+    private double times;
+    private double number = 1.96;
     public PercolationStats(int N, int T, PercolationFactory pf){
         if (T <= 0){
             throw new java.lang.IllegalArgumentException("Can't perform negative operations!");
@@ -15,7 +17,7 @@ public class PercolationStats {
             throw new java.lang.IllegalArgumentException("Can't have negative area!");
         }
         lst = new double[T];
-
+        times = T;
         for (int i = 0; i < T; i ++) {
             Percolation grid = pf.make(N);
             while (grid.percolates() != true) {
@@ -33,9 +35,9 @@ public class PercolationStats {
         return stats.stddev(lst);
     }
     public double confidenceLow(){
-        return;
+        return (mean() - ((number * stddev())/(Math.sqrt(times))));
     }
     public double confidenceHigh(){
-        return;
+        return (mean() + ((number * stddev())/(Math.sqrt(times))));
     }
 }
