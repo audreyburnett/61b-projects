@@ -40,11 +40,11 @@ public class Percolation {
             group.union(modulo(row, col), modulo(row - 1, col));
             group2.union(modulo(row, col), modulo(row - 1, col));
         }
-        if ((col + 1) < len && isOpen(row + 1, col)) {
-            group.union(modulo(row, col), modulo(row + 1, col));
-            group2.union(modulo(row, col), modulo(row + 1, col));
+        if ((col + 1) < len && isOpen(row, col + 1)) {
+            group.union(modulo(row, col), modulo(row, col + 1));
+            group2.union(modulo(row, col), modulo(row, col + 1));
         }
-        if ((col - 1) >= 0 && isOpen(row + 1, col)) {
+        if ((col - 1) >= 0 && isOpen(row, col - 1)) {
             group.union(modulo(row, col), modulo(row, col - 1));
             group2.union(modulo(row, col), modulo(row, col - 1));
         }
