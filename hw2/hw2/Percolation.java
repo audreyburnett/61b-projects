@@ -21,7 +21,7 @@ public class Percolation {
         group2 = new WeightedQuickUnionUF(N * N + 1);
     }
     private int modulo(int row, int col) {
-        return (((row - 1) * len) + col);
+        return (((row) * len) + col);
     }
     public void open(int row, int col){
         if (row >= len || col >= len){
