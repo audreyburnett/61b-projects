@@ -73,6 +73,6 @@ public class Percolation {
         return numberOfOpenSites;
     }
     public boolean percolates() {
-        return group.connected(modulo(len, len), bottom);
+        return group.connected(top, bottom);
     }
 }
