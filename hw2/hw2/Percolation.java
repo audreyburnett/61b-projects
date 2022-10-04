@@ -3,10 +3,10 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    int[][] perc;
-    int len;
-    int numberOfOpenSites;
-    WeightedQuickUnionUF group;
+    private int[][] perc;
+    private int len;
+    private int numberOfOpenSites;
+    private WeightedQuickUnionUF group;
 
 
     public Percolation(int N){
@@ -16,6 +16,7 @@ public class Percolation {
         len = N;
         numberOfOpenSites = 0;
         perc = new int[N][N];
+        group = new WeightedQuickUnionUF(N * N);
     }
     private int modulo(int row, int col) {
         return (((row - 1) * len) + col);
@@ -52,7 +53,7 @@ public class Percolation {
         return perc[row][col] == 1;
     }
     public boolean isFull(int row, int col){
-        if (row >= len || col >= len){
+        if (row >= len || col >= len || row < 0 || col < 0){
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
         return group.connected(modulo(row, col), modulo(-1, -1));

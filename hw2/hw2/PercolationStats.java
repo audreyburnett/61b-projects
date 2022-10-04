@@ -4,8 +4,8 @@ import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class PercolationStats {
-    StdStats stats;
-    StdRandom random;
+    private StdStats stats;
+    private StdRandom random;
     private double[] lst;
     private double times;
     private double number = 1.96;
