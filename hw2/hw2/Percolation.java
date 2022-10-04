@@ -8,6 +8,8 @@ public class Percolation {
     private int numberOfOpenSites;
     private WeightedQuickUnionUF group;
     private WeightedQuickUnionUF group2;
+    private int top;
+    private int bottom;
 
 
     public Percolation(int N) {
@@ -19,12 +21,14 @@ public class Percolation {
         perc = new int[N][N];
         group = new WeightedQuickUnionUF(N * N + 2);
         group2 = new WeightedQuickUnionUF(N * N + 1);
+        top = N * N;
+        bottom = N * N + 1;
     }
     private int modulo(int row, int col) {
         return (((row) * len) + col);
     }
     public void open(int row, int col) {
-        if (row >= len * len + 2 || col >= len * len + 2) {
+        if (row >= len || col >= len) {
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
         perc[row][col] = 1;
@@ -45,30 +49,30 @@ public class Percolation {
             group2.union(modulo(row, col), modulo(row, col - 1));
         }
         if (row == 0) {
-            group.union(modulo(row, col), modulo(len, len));
-            group2.union(modulo(row, col), modulo(len, len));
+            group.union(modulo(row, col), top);
+            group2.union(modulo(row, col), top);
         }
         if (row == len - 1) {
-            group.union(modulo(row, col), modulo(len + 1, len + 1));
+            group.union(modulo(row, col), bottom);
         }
         numberOfOpenSites += 1;
     }
     public boolean isOpen(int row, int col) {
-        if (row >= len * len + 2 || col >= len * len + 2) {
+        if (row >= len || col >= len) {
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
         return perc[row][col] == 1;
     }
     public boolean isFull(int row, int col) {
-        if (row >= len * len + 2 || col >= len * len + 2 || row < 0 || col < 0) {
+        if (row >= len || col >= len || row < 0 || col < 0) {
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
-        return group2.connected(modulo(row, col), modulo(len, len));
+        return group2.connected(modulo(row, col), top);
     }
     public int numberOfOpenSites() {
         return numberOfOpenSites;
     }
     public boolean percolates() {
-        return group.connected(modulo(len, len), modulo(len + 1, len + 1));
+        return group.connected(modulo(len, len), bottom);
     }
 }
