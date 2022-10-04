@@ -31,6 +31,9 @@ public class Percolation {
         if (row >= len || col >= len) {
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
+        if (!(isOpen(row, col))){
+            numberOfOpenSites += 1;
+        }
         perc[row][col] = 1;
         if ((row + 1) < len && isOpen(row + 1, col)) {
             group.union(modulo(row, col), modulo(row + 1, col));
@@ -55,7 +58,6 @@ public class Percolation {
         if (row == len - 1) {
             group.union(modulo(row, col), bottom);
         }
-        numberOfOpenSites += 1;
     }
     public boolean isOpen(int row, int col) {
         if (row >= len || col >= len) {
