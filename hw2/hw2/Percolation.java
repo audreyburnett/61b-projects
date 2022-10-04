@@ -31,7 +31,7 @@ public class Percolation {
         if (row >= len || col >= len) {
             throw new java.lang.IndexOutOfBoundsException("Index out of bounds!");
         }
-        if (!(isOpen(row, col))){
+        if (!(isOpen(row, col))) {
             numberOfOpenSites += 1;
         }
         perc[row][col] = 1;
