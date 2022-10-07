@@ -1,0 +1,67 @@
+Random Speed Test
+
+length of each string: 8
+# of strings: 50
+class bstmap.ULLMap: 0.00 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+
+# of strings: 10000
+class bstmap.ULLMap: 0.25 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+
+# of strings: 25000
+class bstmap.ULLMap: 1.45 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.03 sec
+Java's Built-in HashMap: 0.01 sec
+
+# of strings: 50000
+--Stack Overflow -- couldn't add 50000 strings of length 8.
+class bstmap.BSTMap: 0.02 sec
+Java's Built-in TreeMap: 0.02 sec
+Java's Built-in HashMap: 0.02 sec
+
+In Order Speed Test
+
+length of each string: 8
+# of strings: 100
+class bstmap.ULLMap: 0.00 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.01 sec
+
+# of strings: 1000
+class bstmap.ULLMap: 0.02 sec
+class bstmap.BSTMap: 0.02 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+
+# of strings: 10000
+class bstmap.ULLMap: 0.46 sec
+class bstmap.BSTMap: 0.41 sec
+Java's Built-in TreeMap: 0.02 sec
+Java's Built-in HashMap: 0.00 sec
+
+# of strings: 25000
+class bstmap.ULLMap: 4.20 sec
+--Stack Overflow -- couldn't add 25000 strings.
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.00 sec
+
+# of strings: 50000
+--Stack Overflow -- couldn't add 50000 strings.
+--Stack Overflow -- couldn't add 50000 strings.
+Java's Built-in TreeMap: 0.02 sec
+Java's Built-in HashMap: 0.00 sec
+
+
+
+
+
+
+
+

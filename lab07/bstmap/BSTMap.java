@@ -1,6 +1,7 @@
 package bstmap;
 
 import java.util.Set;
+import java.util.Iterator;
 
 public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
     BSTNode root;
@@ -25,9 +26,6 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
         size = 0;
     }
     public boolean containsKey(K key){
-        if (key == null){
-            throw new IllegalArgumentException();
-        }
         return get(key) != null;
     }
     public V get(K key){
@@ -52,57 +50,39 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
         return size;
     }
     public void put(K key, V value){
-        if (root == null) {
-
-        }
-        if (key == null){
-            throw new IllegalArgumentException();
-        }
-        if (value == null) {
-
-        }
-        size += 1;
+       root = putHelper(root, key, value);
     }
 
-    private void put(BSTNode root, K key, V val){
-        if (key == root.key) {
-            root.value = val;
-            return;
-        }
+    private BSTNode putHelper(BSTNode root, K key, V val) {
         if (root == null) {
             root = new BSTNode(key, val);
             size += 1;
+            return root;
         }
         int cmp = key.compareTo(root.key);
         if (cmp < 0) {
-            if (root.left != null) {
-                put(root.left, key, val);
-            }
-            else {
-                root.left = new BSTNode(key, val);
-            }
-        else {
-            if (root.right != null) {
-                put(root, key, val);
-            }
-            else {
-                root.right = new BSTNode(key, val);
-            }
+            root.left = putHelper(root.left, key, val);
+        } else if (cmp > 0){
+            root.right = putHelper(root.right, key, val);
         }
+        else {
+            root.value = val;
+        }
+        return root;
     }
     public void printInOrder(){
-
+        return;
     }
-    public Set<K> keySet(){
+    public Set<K> keySet() {
         throw new UnsupportedOperationException();
     }
-    public V remove(K key){
+    public V remove(K key) {
         throw new UnsupportedOperationException();
     }
-    public V remove(K key, V value){
+    public V remove(K key, V val) {
         throw new UnsupportedOperationException();
     }
-    public Iterator<K> iterator(){
+    public Iterator<K> iterator() {
         throw new UnsupportedOperationException();
     }
 }
