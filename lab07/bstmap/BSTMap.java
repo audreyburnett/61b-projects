@@ -25,9 +25,11 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
         root = null;
         size = 0;
     }
+    @Override
     public boolean containsKey(K key){
         return get(key) != null;
     }
+    @Override
     public V get(K key){
         return getHelper(root, key);
     }
@@ -46,9 +48,12 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
             return root.value;
         }
     }
+    @Override
     public int size(){
         return size;
     }
+
+    @Override
     public void put(K key, V value){
        root = putHelper(root, key, value);
     }
@@ -69,18 +74,23 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
         }
         return root;
     }
+    @Override
     public void printInOrder(){
         return;
     }
+    @Override
     public Set<K> keySet() {
         throw new UnsupportedOperationException();
     }
+    @Override
     public V remove(K key) {
         throw new UnsupportedOperationException();
     }
+    @Override
     public V remove(K key, V val) {
         throw new UnsupportedOperationException();
     }
+    @Override
     public Iterator<K> iterator() {
         throw new UnsupportedOperationException();
     }
