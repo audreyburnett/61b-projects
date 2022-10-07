@@ -27,7 +27,10 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
     }
     @Override
     public boolean containsKey(K key){
-        return get(key) != null;
+        if (get(key) == null){
+            return false;
+        }
+        return true;
     }
     @Override
     public V get(K key){
@@ -35,9 +38,6 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
     }
 
     private V getHelper(BSTNode root, K key){
-        if (key == null) {
-            throw new IllegalArgumentException();
-        }
         if (root == null){
             return null;
         }
