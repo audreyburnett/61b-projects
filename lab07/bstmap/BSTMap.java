@@ -35,6 +35,9 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
     }
 
     private V getHelper(BSTNode root, K key){
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
         if (root == null){
             return null;
         }
@@ -74,7 +77,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
         }
         return root;
     }
-    
+
     public void printInOrder(){
         return;
     }
