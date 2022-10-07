@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.Iterator;
 
 public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
-    BSTNode root;
-    int size;
+    private BSTNode root;
+    private int size;
     private class BSTNode{
         private K key;
         private V value;
@@ -55,9 +55,8 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
 
     private BSTNode putHelper(BSTNode root, K key, V val) {
         if (root == null) {
-            root = new BSTNode(key, val);
             size += 1;
-            return root;
+            return new BSTNode(key, val);
         }
         int cmp = key.compareTo(root.key);
         if (cmp < 0) {
