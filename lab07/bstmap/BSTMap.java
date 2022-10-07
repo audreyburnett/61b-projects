@@ -27,17 +27,21 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
     }
     @Override
     public boolean containsKey(K key){
-        if (get(key) == null){
-            return false;
-        }
-        return true;
+//        if (get(key) == null){
+//            return false;
+//        }
+//        return true;
+        return getHelper(root, key) != null;
     }
     @Override
     public V get(K key){
-        return getHelper(root, key);
+        if (getHelper(root, key) == null){
+            return null;
+        }
+        return getHelper(root, key).value;
     }
 
-    private V getHelper(BSTNode root, K key){
+    private BSTNode getHelper(BSTNode root, K key){
         if (root == null){
             return null;
         }
@@ -48,7 +52,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
             return getHelper(root.left, key);
         }
         else{
-            return root.value;
+            return root;
         }
     }
     @Override
@@ -71,8 +75,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V>{
             root.left = putHelper(root.left, key, val);
         } else if (cmp > 0){
             root.right = putHelper(root.right, key, val);
-        }
-        else {
+        } else {
             root.value = val;
         }
         return root;
