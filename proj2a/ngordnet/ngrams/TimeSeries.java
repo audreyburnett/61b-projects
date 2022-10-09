@@ -10,30 +10,49 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     /** Constructs a new empty TimeSeries. */
     public TimeSeries() {
         super();
+        clear();
     }
 
     /** Creates a copy of TS, but only between STARTYEAR and ENDYEAR,
      *  inclusive of both end points. */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
+        TimeSeries copy = new TimeSeries();
+        for (int i = startYear; i < endYear + 1; i ++) {
+            if ()
+            copy.put(i, ts.get(i));
+        }
     }
 
     /** Returns all years for this TimeSeries (in any order). */
     public List<Integer> years() {
-        return null;
+        List<Integer> years = new ArrayList<>();
+        Set setView = keySet();
+        years.addAll(setView);
+        return years;
     }
 
     /** Returns all data for this TimeSeries (in any order).
      *  Must be in the same order as years(). */
     public List<Double> data() {
-        return null;
+        List<Double> data = new ArrayList<>();
+        int index = 0;
+        for (Integer x : years()) {
+            data.add(index, get(x));
+            index += 1;
+        }
+        return data;
     }
 
     /** Returns the yearwise sum of this TimeSeries with the given TS. In other words, for
      *  each year, sum the data from this TimeSeries with the data from TS. Should return a
      *  new TimeSeries (does not modify this TimeSeries). */
     public TimeSeries plus(TimeSeries ts) {
-        return null;
+        TimeSeries plus = new TimeSeries();
+        for (int i = 0; i < years().size(); i ++) {
+
+        }
+        return plus;
     }
 
      /** Returns the quotient of the value for each year this TimeSeries divided by the
