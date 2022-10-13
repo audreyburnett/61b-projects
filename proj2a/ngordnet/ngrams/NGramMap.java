@@ -31,7 +31,7 @@ public class NGramMap {
                 words.put(key, value);
             }
         }
-        In two = new In(wordsFilename);
+        In two = new In(countsFilename);
         while (!(two.isEmpty())) {
             String nextString = two.readString();
             String[] arrOfStr = nextString.split(",");
@@ -62,13 +62,17 @@ public class NGramMap {
 
     /** Returns a defensive copy of the total number of words recorded per year in all volumes. */
     public TimeSeries totalCountHistory() {
-        return null;
+        TimeSeries copy = new TimeSeries();
+        copy.putAll(counts);
+        return copy;
     }
 
     /** Provides a TimeSeries containing the relative frequency per year of WORD compared to
      *  all words recorded in that year. */
     public TimeSeries weightHistory(String word) {
-        return null;
+        TimeSeries wordHistory = words.get(word);
+//        TimeSeries
+        return wordHistory;
     }
 
     /** Provides a TimeSeries containing the relative frequency per year of WORD between STARTYEAR
