@@ -70,4 +70,9 @@ public class TestNGramMap {
         assertEquals(expectedFishPlusDogWeight1865, fishPlusDogWeight.get(1865), 1E-10);
     }
 
+    @Test
+    public void constructorTest() {
+        NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv", "./data/ngrams/total_counts.csv");
+    }
+
 }  

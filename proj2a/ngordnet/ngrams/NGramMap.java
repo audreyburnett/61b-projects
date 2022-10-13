@@ -20,13 +20,17 @@ public class NGramMap {
     public NGramMap(String wordsFilename, String countsFilename) {
         In in = new In(wordsFilename);
         while (!(in.isEmpty())) {
-            String key = in.readString();
+            String key = in.readLine();
             if (words.containsKey(key)) {
-                words.get(key).put(in.readInt(), in.readDouble());
+                int next = in.readInt();
+                Double b = in.readDouble();
+                words.get(key).put(next, b);
                 in.readInt();
             } else {
                 TimeSeries value = new TimeSeries();
-                value.put(in.readInt(), in.readDouble());
+                int a = in.readInt();
+                Double b = in.readDouble();
+                value.put(a, b);
                 in.readInt();
                 words.put(key, value);
             }
@@ -70,27 +74,32 @@ public class NGramMap {
     /** Provides a TimeSeries containing the relative frequency per year of WORD compared to
      *  all words recorded in that year. */
     public TimeSeries weightHistory(String word) {
-        TimeSeries wordHistory = words.get(word);
-//        TimeSeries
-        return wordHistory;
+        TimeSeries wordHistory = countHistory(word);
+        TimeSeries weight = wordHistory.dividedBy(totalCountHistory());
+        return weight;
     }
 
     /** Provides a TimeSeries containing the relative frequency per year of WORD between STARTYEAR
      *  and ENDYEAR, inclusive of both ends. */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
-        return null;
+        TimeSeries wordHistory = countHistory(word, startYear, endYear);
+        TimeSeries weight = wordHistory.dividedBy(totalCountHistory());
+        return weight;
     }
 
     /** Returns the summed relative frequency per year of all words in WORDS. */
     public TimeSeries summedWeightHistory(Collection<String> words) {
+        TimeSeries result = new TimeSeries();
+        for (String x : words) {
+            weightHistory(x);
+        }
         return null;
     }
 
     /** Provides the summed relative frequency per year of all words in WORDS
      *  between STARTYEAR and ENDYEAR, inclusive of both ends. If a word does not exist in
      *  this time frame, ignore it rather than throwing an exception. */
-    public TimeSeries summedWeightHistory(Collection<String> words,
-                              int startYear, int endYear) {
+    public TimeSeries summedWeightHistory(Collection<String> words, int startYear, int endYear) {
         return null;
     }
 
