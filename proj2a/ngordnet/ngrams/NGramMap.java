@@ -18,20 +18,22 @@ public class NGramMap {
     private TimeSeries counts;
     /** Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME. */
     public NGramMap(String wordsFilename, String countsFilename) {
+        words = new HashMap();
+        counts = new TimeSeries();
         In in = new In(wordsFilename);
         while (!(in.isEmpty())) {
-            String key = in.readLine();
-            if (words.containsKey(key)) {
-                int next = in.readInt();
-                Double b = in.readDouble();
-                words.get(key).put(next, b);
-                in.readInt();
+            String string = in.readLine();
+            String[] arr = string.split("\\t");
+            String key = arr[0];
+            if (words != null && words.containsKey(key)) {
+                int a = Integer.parseInt(arr[1]);
+                Double b = Double.parseDouble(arr[2]);
+                words.get(key).put(a, b);
             } else {
                 TimeSeries value = new TimeSeries();
-                int a = in.readInt();
-                Double b = in.readDouble();
+                int a = Integer.parseInt(arr[1]);
+                Double b = Double.parseDouble(arr[2]);
                 value.put(a, b);
-                in.readInt();
                 words.put(key, value);
             }
         }
