@@ -63,7 +63,13 @@ public class NGramMap {
      *  changes made to the object returned by this function should not also affect the
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        TimeSeries copy = new TimeSeries(words.get(word), startYear, endYear);
+//        TimeSeries copy = new TimeSeries(words.get(word), startYear, endYear);
+        TimeSeries copy = new TimeSeries();
+        for (Integer x : words.get(word).years()) {
+            if (x >= startYear && x <= endYear) {
+                copy.put(x, words.get(word).get(x));
+            }
+        }
         return copy;
     }
 
@@ -94,16 +100,20 @@ public class NGramMap {
     public TimeSeries summedWeightHistory(Collection<String> words) {
         TimeSeries result = new TimeSeries();
         for (String x : words) {
-            weightHistory(x);
+            result = result.plus(weightHistory(x));
         }
-        return null;
+        return result;
     }
 
     /** Provides the summed relative frequency per year of all words in WORDS
      *  between STARTYEAR and ENDYEAR, inclusive of both ends. If a word does not exist in
      *  this time frame, ignore it rather than throwing an exception. */
     public TimeSeries summedWeightHistory(Collection<String> words, int startYear, int endYear) {
-        return null;
+        TimeSeries result = new TimeSeries();
+        for (String x : words) {
+            result = result.plus(weightHistory(x, startYear, endYear));
+        }
+        return result;
     }
 
 

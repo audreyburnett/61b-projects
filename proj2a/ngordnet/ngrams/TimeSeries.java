@@ -23,6 +23,11 @@ public class TimeSeries extends TreeMap<Integer, Double> {
                 copy.put(i, ts.get(i));
             }
         }
+//        for (Integer x : ts.years()) {
+//            if (x >= startYear && x <= endYear) {
+//                copy.put(x, ts.get(x));
+//            }
+//        }
     }
 
     /** Returns all years for this TimeSeries (in any order). */
