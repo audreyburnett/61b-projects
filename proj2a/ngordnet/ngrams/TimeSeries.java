@@ -63,18 +63,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         return plus;
     }
 
-     /** Returns the quotient of the value for each year this TimeSeries divided by the
-      *  value for the same year in TS. If TS is missing a year that exists in this TimeSeries,
-      *  throw an IllegalArgumentException. If TS has a year that is not in this TimeSeries, ignore it.
-      *  Should return a new TimeSeries (does not modify this TimeSeries). */
-     public TimeSeries dividedBy(TimeSeries ts) {
-         TimeSeries quotient = new TimeSeries();
-         for (Integer x : this.years()) {
-             if (!(ts.containsKey(x))) {
-                 throw new IllegalArgumentException();
-             }
-             quotient.put(x, this.get(x) / ts.get(x));
-         }
-         return quotient;
+    /** Returns the quotient of the value for each year this TimeSeries divided by the
+     *  value for the same year in TS. If TS is missing a year that exists in this TimeSeries,
+     *  throw an IllegalArgumentException. If TS has a year that is not in this TimeSeries, ignore it.
+     *  Should return a new TimeSeries (does not modify this TimeSeries). */
+    public TimeSeries dividedBy(TimeSeries ts) {
+        TimeSeries quotient = new TimeSeries();
+        for (Integer x : this.years()) {
+            if (!(ts.containsKey(x))) {
+                throw new IllegalArgumentException();
+            }
+            quotient.put(x, this.get(x) / ts.get(x));
+        }
+        return quotient;
     }
 }

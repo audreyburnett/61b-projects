@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class HistoryHandler extends NgordnetQueryHandler {
 
-    NGramMap a;
+    private NGramMap a;
     public HistoryHandler(NGramMap map) {
         a = map;
     }
@@ -20,10 +20,12 @@ public class HistoryHandler extends NgordnetQueryHandler {
     public String handle(NgordnetQuery q) {
         ArrayList<TimeSeries> lts = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
+        int startYear = q.startYear();
+        int endYear = q.endYear();
 
         for (String x : q.words()) {
             labels.add(x);
-            lts.add(a.weightHistory(x));
+            lts.add(a.weightHistory(x, startYear, endYear));
         }
 
         XYChart chart = Plotter.generateTimeSeriesChart(labels, lts);
