@@ -54,6 +54,7 @@ public class NGramMap {
     public TimeSeries countHistory(String word) {
         TimeSeries copy = new TimeSeries();
         copy.putAll(words.get(word));
+//        copy.put(2007, 1.0);
         return copy;
     }
 
