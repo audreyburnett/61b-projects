@@ -1,6 +1,8 @@
 package ngordnet.ngrams;
 
 import java.util.Collection;
+import java.util.HashMap;
+import edu.princeton.cs.algs4.In;
 
 /** An object that provides utility methods for making queries on the
  *  Google NGrams dataset (or a subset thereof).
@@ -12,8 +14,31 @@ import java.util.Collection;
  *  @author Josh Hug
  */
 public class NGramMap {
+    private HashMap<String, TimeSeries> words;
+    private TimeSeries counts;
     /** Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME. */
     public NGramMap(String wordsFilename, String countsFilename) {
+        In in = new In(wordsFilename);
+        while (!(in.isEmpty())) {
+            String key = in.readString();
+            if (words.containsKey(key)) {
+                words.get(key).put(in.readInt(), in.readDouble());
+                in.readInt();
+            } else {
+                TimeSeries value = new TimeSeries();
+                value.put(in.readInt(), in.readDouble());
+                in.readInt();
+                words.put(key, value);
+            }
+        }
+        In two = new In(wordsFilename);
+        while (!(two.isEmpty())) {
+            String nextString = two.readString();
+            String[] arrOfStr = nextString.split(",");
+            int key = Integer.parseInt(arrOfStr[0]);
+            Double value = Double.parseDouble(arrOfStr[1]);
+            counts.put(key, value);
+        }
     }
 
     /** Provides the history of WORD. The returned TimeSeries should be a copy,
@@ -21,7 +46,9 @@ public class NGramMap {
      *  to the object returned by this function should not also affect the
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word) {
-        return null;
+        TimeSeries copy = new TimeSeries();
+        copy.putAll(words.get(word));
+        return copy;
     }
 
     /** Provides the history of WORD between STARTYEAR and ENDYEAR, inclusive of both ends. The
@@ -29,7 +56,8 @@ public class NGramMap {
      *  changes made to the object returned by this function should not also affect the
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        return null;
+        TimeSeries copy = new TimeSeries(words.get(word), startYear, endYear);
+        return copy;
     }
 
     /** Returns a defensive copy of the total number of words recorded per year in all volumes. */

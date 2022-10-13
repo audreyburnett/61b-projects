@@ -19,8 +19,9 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         super();
         TimeSeries copy = new TimeSeries();
         for (int i = startYear; i < endYear + 1; i ++) {
-            if ()
-            copy.put(i, ts.get(i));
+            if (ts.containsKey(i)) {
+                copy.put(i, ts.get(i));
+            }
         }
     }
 
@@ -49,8 +50,15 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      *  new TimeSeries (does not modify this TimeSeries). */
     public TimeSeries plus(TimeSeries ts) {
         TimeSeries plus = new TimeSeries();
-        for (int i = 0; i < years().size(); i ++) {
-
+        for (Integer x : this.years()) {
+            plus.put(x, this.get(x));
+        }
+        for (Integer y : ts.years()) {
+            if (plus.containsKey(y)) {
+                plus.put(y, plus.get(y) + ts.get(y));
+            } else {
+                plus.put(y, ts.get(y));
+            }
         }
         return plus;
     }
@@ -60,6 +68,13 @@ public class TimeSeries extends TreeMap<Integer, Double> {
       *  throw an IllegalArgumentException. If TS has a year that is not in this TimeSeries, ignore it.
       *  Should return a new TimeSeries (does not modify this TimeSeries). */
      public TimeSeries dividedBy(TimeSeries ts) {
-        return null;
+         TimeSeries quotient = new TimeSeries();
+         for (Integer x : this.years()) {
+             if (!(ts.containsKey(x))) {
+                 throw new IllegalArgumentException();
+             }
+             quotient.put(x, this.get(x)/ts.get(x));
+         }
+         return quotient;
     }
 }
