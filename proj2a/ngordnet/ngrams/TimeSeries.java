@@ -18,16 +18,11 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
         TimeSeries copy = new TimeSeries();
-        for (int i = startYear; i < endYear + 1; i ++) {
+        for (int i = startYear; i < endYear + 1; i++) {
             if (ts.containsKey(i)) {
                 copy.put(i, ts.get(i));
             }
         }
-//        for (Integer x : ts.years()) {
-//            if (x >= startYear && x <= endYear) {
-//                copy.put(x, ts.get(x));
-//            }
-//        }
     }
 
     /** Returns all years for this TimeSeries (in any order). */
@@ -78,7 +73,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
              if (!(ts.containsKey(x))) {
                  throw new IllegalArgumentException();
              }
-             quotient.put(x, this.get(x)/ts.get(x));
+             quotient.put(x, this.get(x) / ts.get(x));
          }
          return quotient;
     }

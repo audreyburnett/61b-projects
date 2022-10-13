@@ -54,7 +54,6 @@ public class NGramMap {
     public TimeSeries countHistory(String word) {
         TimeSeries copy = new TimeSeries();
         copy.putAll(words.get(word));
-//        copy.put(2007, 1.0);
         return copy;
     }
 
@@ -63,7 +62,6 @@ public class NGramMap {
      *  changes made to the object returned by this function should not also affect the
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-//        TimeSeries copy = new TimeSeries(words.get(word), startYear, endYear);
         TimeSeries copy = new TimeSeries();
         for (Integer x : words.get(word).years()) {
             if (x >= startYear && x <= endYear) {
