@@ -178,15 +178,17 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (getNode(key) != null) {
             getNode(key).value = value;
         }
-        if (((double) size) / buckets.length >= loadfactor) {
-            resize(buckets.length * 2);
+        else {
+            if (((double) size) / buckets.length >= loadfactor) {
+                resize(buckets.length * 2);
+            }
+            size = size + 1;
+            int index = findBucket(key);
+            if (buckets[index] == null) {
+                buckets[index] = createBucket();
+            }
+            buckets[index].add(createNode(key, value));
         }
-        size = size + 1;
-        int index = findBucket(key);
-        if (buckets[index] == null) {
-            buckets[index] = createBucket();
-        }
-        buckets[index].add(createNode(key,value));
     }
 
     /** Returns a Set view of the keys contained in this map. */
