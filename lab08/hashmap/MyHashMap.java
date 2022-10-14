@@ -2,6 +2,7 @@ package hashmap;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -29,12 +30,25 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     /* Instance Variables */
     private Collection<Node>[] buckets;
+    private int size;
+    private double loadfactor;
+    private static final int DEFAULT_INITSIZE = 16;
+    private static final double DEFAULT_LOADFACTOR = 0.75;
     // You should probably define some more!
 
     /** Constructors */
-    public MyHashMap() { }
+    public MyHashMap() {
+        buckets = createTable(DEFAULT_INITSIZE);
+        size = 0;
+        loadfactor = DEFAULT_LOADFACTOR;
+    }
 
-    public MyHashMap(int initialSize) { }
+    public MyHashMap(int initialSize) {
+        buckets = createTable(initialSize);
+        size = 0;
+        loadfactor = DEFAULT_LOADFACTOR;
+
+    }
 
     /**
      * MyHashMap constructor that creates a backing array of initialSize.
@@ -43,13 +57,17 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param initialSize initial size of backing array
      * @param maxLoad maximum load factor
      */
-    public MyHashMap(int initialSize, double maxLoad) { }
+    public MyHashMap(int initialSize, double maxLoad) {
+        buckets = createTable(initialSize);
+        size = 0;
+        loadfactor = maxLoad;
+    }
 
     /**
      * Returns a new node to be placed in a hash table bucket
      */
     private Node createNode(K key, V value) {
-        return null;
+        return new Node(key, value);
     }
 
     /**
@@ -71,7 +89,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * OWN BUCKET DATA STRUCTURES WITH THE NEW OPERATOR!
      */
     protected Collection<Node> createBucket() {
-        return null;
+        return new LinkedList<>();
     }
 
     /**
@@ -84,14 +102,33 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param tableSize the size of the table to create
      */
     private Collection<Node>[] createTable(int tableSize) {
-        return null;
+        return new Collection[tableSize];
+    }
+
+    private int findBucket(K key) {
+        return Math.floorMod(key, buckets.length);
+    }
+
+    private int findBucket(K key, int bucketLength) {
+        return Math.floorMod(key);
+    }
+    private Node getNode(K key) {
+        for (int i = 0; i < size; i++) {
+            if (buckets[i] )
+        }
     }
 
     // TODO: Implement the methods of the Map61B Interface below
-    public void clear(){}
+    public void clear() {
+        buckets = createTable(DEFAULT_INITSIZE);
+        size = 0;
+    }
 
     /** Returns true if this map contains a mapping for the specified key. */
-    public boolean containsKey(K key){}
+    public boolean containsKey(K key) {
+        Node node = getNode(key);
+        return node != null;
+    }
 
     /**
      * Returns the value to which the specified key is mapped, or null if this
