@@ -113,7 +113,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return Math.floorMod(key.hashCode(), bucketSize);
     }
     private Node getNode(K key) {
-        int Node = findBucket(key);
+        int node = findBucket(key);
         if (buckets[Node] != null) {
             for (Node n : buckets[Node]) {
                 if (n.key.equals(key)) {
@@ -124,7 +124,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return null;
     }
 
-    public void resize(int target) {
+    private void resize(int target) {
         Collection<Node>[] newBucket = createTable(target);
         for (Collection<Node> c : buckets) {
             if (c == null) {
@@ -142,7 +142,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         buckets = newBucket;
     }
 
-    // TODO: Implement the methods of the Map61B Interface below
     public void clear() {
         buckets = createTable(DEFAULT_INITSIZE);
         size = 0;
@@ -177,8 +176,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     public void put(K key, V value) {
         if (getNode(key) != null) {
             getNode(key).value = value;
-        }
-        else {
+        } else {
             if (((double) size) / buckets.length >= loadfactor) {
                 resize(buckets.length * 2);
             }
@@ -192,7 +190,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     /** Returns a Set view of the keys contained in this map. */
-    public Set<K> keySet(){
+    public Set<K> keySet() {
         throw new UnsupportedOperationException();
     }
 
@@ -201,7 +199,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * Not required for Lab 8. If you don't implement this, throw an
      * UnsupportedOperationException.
      */
-    public V remove(K key){
+    public V remove(K key) {
         throw new UnsupportedOperationException();
     }
 
