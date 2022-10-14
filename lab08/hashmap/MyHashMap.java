@@ -114,8 +114,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
     private Node getNode(K key) {
         int node = findBucket(key);
-        if (buckets[Node] != null) {
-            for (Node n : buckets[Node]) {
+        if (buckets[node] != null) {
+            for (Node n : buckets[node]) {
                 if (n.key.equals(key)) {
                     return n;
                 }
