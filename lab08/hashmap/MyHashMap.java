@@ -106,16 +106,40 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     private int findBucket(K key) {
-        return Math.floorMod(key, buckets.length);
+        return findBucket(key, buckets.length);
     }
 
-    private int findBucket(K key, int bucketLength) {
-        return Math.floorMod(key);
+    private int findBucket(K key, int bucketSize) {
+        return Math.floorMod(key.hashCode(), bucketSize);
     }
     private Node getNode(K key) {
-        for (int i = 0; i < size; i++) {
-            if (buckets[i] )
+        int Node = findBucket(key);
+        if (buckets[Node] != null) {
+            for (Node n : buckets[Node]) {
+                if (n.key.equals(key)) {
+                    return n;
+                }
+            }
         }
+        return null;
+    }
+
+    public void resize(int target) {
+        Collection<Node>[] newBucket = createTable(target);
+        for (Collection<Node> c : buckets) {
+            if (c == null) {
+                continue;
+            }
+            for (Node n : c) {
+                K key = n.key;
+                int index = findBucket(key, newBucket.length);
+                if (newBucket[index] == null) {
+                    newBucket[index] = createBucket();
+                }
+                newBucket[index].add(getNode(key));
+            }
+        }
+        buckets = newBucket;
     }
 
     // TODO: Implement the methods of the Map61B Interface below
@@ -126,25 +150,44 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     /** Returns true if this map contains a mapping for the specified key. */
     public boolean containsKey(K key) {
-        Node node = getNode(key);
-        return node != null;
+        return getNode(key) != null;
     }
 
     /**
      * Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
      */
-    public V get(K key){}
+    public V get(K key) {
+        if (containsKey(key)) {
+            return getNode(key).value;
+        }
+        return null;
+    }
 
     /** Returns the number of key-value mappings in this map. */
-    public int size(){}
+    public int size() {
+        return size;
+    }
 
     /**
      * Associates the specified value with the specified key in this map.
      * If the map previously contained a mapping for the key,
      * the old value is replaced.
      */
-    public void put(K key, V value){}
+    public void put(K key, V value) {
+        if (getNode(key) != null) {
+            getNode(key).value = value;
+        }
+        if (((double) size) / buckets.length >= loadfactor) {
+            resize(buckets.length * 2);
+        }
+        size = size + 1;
+        int index = findBucket(key);
+        if (buckets[index] == null) {
+            buckets[index] = createBucket();
+        }
+        buckets[index].add(createNode(key,value));
+    }
 
     /** Returns a Set view of the keys contained in this map. */
     public Set<K> keySet(){
