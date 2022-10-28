@@ -11,6 +11,7 @@ public class HyponymsGraph<T> {
         adjList = new HashMap();
     }
 
+    //add edge
     public void addEdge(T key, T val) {
         LinkedList<T> ll = new LinkedList<>();
         if (!(adjList.containsKey(key))) {
@@ -21,6 +22,7 @@ public class HyponymsGraph<T> {
         }
     }
 
+    //does the graph contain this vertex
     public boolean containsVertex(T key) {
         return adjList.containsKey(key);
     }
