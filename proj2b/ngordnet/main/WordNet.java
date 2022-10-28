@@ -3,6 +3,8 @@ import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WordNet {
     private HyponymsGraph graphWordID;
@@ -34,18 +36,19 @@ public class WordNet {
         }
     }
 
-    public ArrayList<String> hyponymList(int wordID) {
+    public ArrayList<String> hyponymIDList(int wordID) {
+        ArrayList<Integer> allIDs = new ArrayList<>();
+        HashSet<String> allWords = new HashSet<>();
         if (!(hyponymID.containsVertex(wordID))) {
             return null;
         } else {
-            ArrayList<Integer> allIDs = hyponymID.getAdjList(wordID);
-            ArrayList<String> hyponyms = new ArrayList<>();
-            allIDs.add(wordID);
-            for (Integer x : allIDs) {
-                hyponyms.addAll(graphWordID.getAdjList(x));
-            }
-            Collections.sort(hyponyms);
-            return hyponyms;
+            allIDs = hyponymID.traverse(wordID);
         }
+        for (Integer x : allIDs) {
+            allWords.addAll(graphWordID.getAdjList(x));
+        }
+        ArrayList<String> allWordsList = new ArrayList<String>(allWords);
+        Collections.sort(allWordsList);
+        return allWordsList;
     }
 }
