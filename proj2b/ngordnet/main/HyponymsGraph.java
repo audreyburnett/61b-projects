@@ -27,6 +27,12 @@ public class HyponymsGraph<T> {
     public boolean containsVertex(T key) {
         return adjList.containsKey(key);
     }
+    public boolean containsVal(T val) {
+        return adjList.containsValue(val);
+    }
+    public T getKey(T val) {
+
+    }
 
     public ArrayList<T> getAdjList(T key) {
         ArrayList<T> returnList = new ArrayList<T>();

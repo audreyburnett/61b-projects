@@ -36,7 +36,13 @@ public class WordNet {
         }
     }
 
-    public ArrayList<String> hyponymIDList(int wordID) {
+    public ArrayList<String> hyponymIDList(String word) {
+        int wordID;
+        if (graphWordID.containsVal(word)) {
+            wordID = graphWordID.getKey(word);
+        } else {
+            return null;
+        }
         ArrayList<Integer> allIDs = new ArrayList<>();
         HashSet<String> allWords = new HashSet<>();
         if (!(hyponymID.containsVertex(wordID))) {

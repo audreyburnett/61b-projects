@@ -16,8 +16,8 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         int startYear = q.startYear();
         int endYear = q.endYear();
 
-        String stringrep = wn.hyponymIDList();
-        return stringrep;
+//        String stringrep = wn.hyponymIDList();
+        return "hi";
 
 
 //        return wn.doSomething();
