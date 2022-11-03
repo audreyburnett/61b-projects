@@ -26,32 +26,32 @@ public class WordNet {
             }
         }
         while (!(inTwo.isEmpty())) {
-            String string = in.readLine();
+            String string = inTwo.readLine();
             String[] arr = string.split(",");
             int key = Integer.parseInt(arr[0]);
             int end = arr.length;
             for (int x = 1; x < end; x++) {
-                hyponymID.addEdge(key, x);
+                hyponymID.addEdge(key, arr[x]);
             }
         }
     }
 
     public ArrayList<String> hyponymIDList(String word) {
-        int wordID;
-        if (graphWordID.containsVal(word)) {
-            wordID = graphWordID.getKey(word);
-        } else {
-            return null;
-        }
+        ArrayList<Integer> wordID = new ArrayList<>();
+//        if (graphWordID.containsVal(word)) {
+        wordID = graphWordID.getKeyList(word);
+//        } else {
+//            return null;
+//        }
         ArrayList<Integer> allIDs = new ArrayList<>();
         HashSet<String> allWords = new HashSet<>();
-        if (!(hyponymID.containsVertex(wordID))) {
-            return null;
-        } else {
-            allIDs = hyponymID.traverse(wordID);
-        }
-        for (Integer x : allIDs) {
-            allWords.addAll(graphWordID.getAdjList(x));
+        for (Integer i : wordID) {
+            if ((hyponymID.containsVertex(i))) {
+                allIDs = hyponymID.traverse(i);
+            }
+            for (Integer x : allIDs) {
+                allWords.addAll(graphWordID.getAdjList(x));
+            }
         }
         ArrayList<String> allWordsList = new ArrayList<String>(allWords);
         Collections.sort(allWordsList);

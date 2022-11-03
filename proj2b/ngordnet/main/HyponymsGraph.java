@@ -30,8 +30,14 @@ public class HyponymsGraph<T> {
     public boolean containsVal(T val) {
         return adjList.containsValue(val);
     }
-    public T getKey(T val) {
-
+    public ArrayList<T> getKeyList(T word) {
+        ArrayList<T> keyList = new ArrayList<>();
+        for (T i : adjList.keySet()) {
+            if (adjList.get(i).contains(word)) {
+                keyList.add(i);
+            }
+        }
+        return keyList;
     }
 
     public ArrayList<T> getAdjList(T key) {
@@ -43,6 +49,7 @@ public class HyponymsGraph<T> {
             int i = 0;
             while (i < val.size()) {
                 returnList.add(val.get(i));
+                i ++;
             }
             return returnList;
         }
