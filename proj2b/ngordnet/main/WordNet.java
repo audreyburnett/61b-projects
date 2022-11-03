@@ -1,10 +1,7 @@
 package ngordnet.main;
 import edu.princeton.cs.algs4.In;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class WordNet {
     private HyponymsGraph graphWordID;
@@ -31,7 +28,7 @@ public class WordNet {
             int key = Integer.parseInt(arr[0]);
             int end = arr.length;
             for (int x = 1; x < end; x++) {
-                hyponymID.addEdge(key, arr[x]);
+                hyponymID.addEdge(key, Integer.parseInt(arr[x]));
             }
         }
     }
@@ -49,9 +46,9 @@ public class WordNet {
             if ((hyponymID.containsVertex(i))) {
                 allIDs = hyponymID.traverse(i);
             }
-            for (Integer x : allIDs) {
-                allWords.addAll(graphWordID.getAdjList(x));
-            }
+        }
+        for (Integer x : allIDs) {
+            allWords.addAll(graphWordID.getAdjList(x));
         }
         ArrayList<String> allWordsList = new ArrayList<String>(allWords);
         Collections.sort(allWordsList);

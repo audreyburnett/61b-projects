@@ -62,7 +62,10 @@ public class HyponymsGraph<T> {
         while (!(fringe.isEmpty())) {
             T popped = fringe.pop();
             result.add(popped);
-            fringe.addAll(getAdjList(item));
+            ArrayList<T> nextItems = getAdjList(popped);
+            if (nextItems != null) {
+                fringe.addAll(nextItems);
+            }
         }
         return result;
     }
