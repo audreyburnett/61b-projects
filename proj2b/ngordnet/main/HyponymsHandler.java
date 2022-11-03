@@ -3,6 +3,7 @@ package ngordnet.main;
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HyponymsHandler extends NgordnetQueryHandler {
@@ -16,8 +17,8 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         int startYear = q.startYear();
         int endYear = q.endYear();
 
-//        String stringrep = wn.hyponymIDList();
-        return "hi";
+        ArrayList stringrep = wn.hyponymIDList(words.get(0));
+        return stringrep;
 
 
 //        return wn.doSomething();

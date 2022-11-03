@@ -35,11 +35,8 @@ public class WordNet {
 
     public ArrayList<String> hyponymIDList(String word) {
         ArrayList<Integer> wordID = new ArrayList<>();
-//        if (graphWordID.containsVal(word)) {
         wordID = graphWordID.getKeyList(word);
-//        } else {
-//            return null;
-//        }
+
         ArrayList<Integer> allIDs = new ArrayList<>();
         HashSet<String> allWords = new HashSet<>();
         for (Integer i : wordID) {
@@ -53,5 +50,13 @@ public class WordNet {
         ArrayList<String> allWordsList = new ArrayList<String>(allWords);
         Collections.sort(allWordsList);
         return allWordsList;
+    }
+
+    public ArrayList<String> listOfWords(List<String> words) {
+        ArrayList<String> result = hyponymIDList(words.get(0));
+        for (int i = 0; i < words.size(); i ++) {
+            result.retainAll(hyponymIDList(words.get(i)));
+        }
+        return result;
     }
 }
