@@ -13,12 +13,8 @@ public class AutograderBuddy {
             String synsetFile, String hyponymFile) {
 
         WordNet wn = new WordNet(synsetFile, hyponymFile);
+        HyponymsHandler handler = new HyponymsHandler(wn);
 
-        HugNgordnetServer hns = new HugNgordnetServer();
-        hns.startUp();
-
-        hns.register("hyponyms", new HyponymsHandler(wn));
-
-        return null;
+        return handler;
     }
 }

@@ -41,7 +41,10 @@ public class WordNet {
         HashSet<String> allWords = new HashSet<>();
         for (Integer i : wordID) {
             if ((hyponymID.containsVertex(i))) {
-                allIDs = hyponymID.traverse(i);
+                allIDs.addAll(hyponymID.traverse(i));
+            }
+            else {
+                allIDs.add(i);
             }
         }
         for (Integer x : allIDs) {
@@ -52,11 +55,32 @@ public class WordNet {
         return allWordsList;
     }
 
-    public ArrayList<String> listOfWords(List<String> words) {
-        ArrayList<String> result = hyponymIDList(words.get(0));
-        for (int i = 0; i < words.size(); i ++) {
-            result.retainAll(hyponymIDList(words.get(i)));
+    //    public ArrayList<String> listOfWords(String words) {
+//        String[] arr = words.split(", ");
+//        ArrayList<String> result = hyponymIDList(arr[0]);
+//        int i = 1;
+//        while (i < arr.length && arr[i] != null) {
+//            result.retainAll(hyponymIDList(arr[i]));
+//            i += 1;
+//        }
+//        return result;
+//    }
+    public String listOfWords(List<String> words) {
+        if (words != null) {
+            ArrayList<String> result = hyponymIDList(words.get(0));
+//            ArrayList<String> result2 = hyponymIDList(words.get(2));
+//            System.out.println(result);
+            int i = 1;
+//            result.retainAll(hyponymIDList(words.get(2)));
+            while (i < words.size() && words.get(i) != null) {
+                String string = words.get(i);
+//                System.out.println(hyponymIDList(words.get(i)));
+                result.retainAll(hyponymIDList(string));
+                i += 1;
+            }
+            return result.toString();
         }
-        return result;
+        return "";
     }
 }
+

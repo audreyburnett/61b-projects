@@ -1,4 +1,4 @@
-f0,event,dummy
+0,event,dummy
 1,happening occurrence occurrent natural_event,dummy
 2,change alteration modification,dummy
 3,transition,dummy

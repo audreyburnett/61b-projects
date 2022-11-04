@@ -21,7 +21,7 @@ public class TestWordNet {
     @Test
     public void testHyponymsList() {
         WordNet wn = new WordNet("./ngordnetData2022/data/wordnet/synsets16.txt", "./ngordnetData2022/data/wordnet/hyponyms16.txt");
-        assertEquals(List.of("albumen", "albumin", "lactalbumin", "ricin", "ricin_toxin", "serum_albumin"), wn.listOfWords("action", "change"));
+        assertEquals(List.of("change", "demotion", "variation"), wn.listOfWords(List.of("action", "change")));
     }
 
 }
