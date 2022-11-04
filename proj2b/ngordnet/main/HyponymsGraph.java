@@ -49,9 +49,9 @@ public class HyponymsGraph<T> {
 //            return null;
 //        } else {
         int i = 0;
-        while (i < val.size()) {
+        while (val != null && i < val.size()) {
             returnList.add(val.get(i));
-            i ++;
+            i++;
         }
         return returnList;
     }

@@ -14,7 +14,7 @@ public class WordNet {
         wordToIDs = new HyponymsGraph();
         In in = new In(synsets);
         In inTwo = new In(hyponyms);
-        In inThree = new In(synsets);
+//        In inThree = new In(synsets);
         while (!(in.isEmpty())) {
             String string1 = in.readLine();
             String[] arr = string1.split(",");
@@ -35,15 +35,6 @@ public class WordNet {
                 hyponymID.addEdge(key, Integer.parseInt(arr[x]));
             }
         }
-//        while (!(inThree.isEmpty())) {
-//            String string3 = inThree.readLine();
-//            String[] arr = string3.split(",");
-//            int val = Integer.parseInt(arr[0]);
-//            String[] words = arr[1].split("\\s");
-//            for (String word : words) {
-//                wordToIDs.addEdge(word, val);
-//            }
-//        }
     }
 
     public ArrayList<String> hyponymIDList(String word) {
@@ -80,6 +71,7 @@ public class WordNet {
 //        return result;
 //    }
     public String listOfWords(List<String> words) {
+        ArrayList<String> toReturn = new ArrayList<>();
         if (words != null) {
             ArrayList<String> result = hyponymIDList(words.get(0));
 //            ArrayList<String> result2 = hyponymIDList(words.get(2));
@@ -88,11 +80,19 @@ public class WordNet {
 //            result.retainAll(hyponymIDList(words.get(2)));
             while (i < words.size() && words.get(i) != null) {
                 String string = words.get(i);
+                ArrayList<String> result222 = new ArrayList<>();
+                result222 = hyponymIDList(string);
 //                System.out.println(hyponymIDList(words.get(i)));
-                result.retainAll(hyponymIDList(string));
+                if (result.size() < result222.size()) {
+                    result222.retainAll(result);
+                    toReturn = result222;
+                } else {
+                    result.retainAll(hyponymIDList(string));
+                    toReturn = result;
+                }
                 i += 1;
             }
-            return result.toString();
+            return toReturn.toString();
         }
         return "";
     }
