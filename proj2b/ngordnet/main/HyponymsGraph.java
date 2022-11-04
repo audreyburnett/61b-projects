@@ -45,17 +45,17 @@ public class HyponymsGraph<T> {
     public ArrayList<T> getAdjList(T key) {
         ArrayList<T> returnList = new ArrayList<T>();
         LinkedList<T> val = adjList.get(key);
-        if (!(containsVertex(key))) {
-            return null;
-        } else {
-            int i = 0;
-            while (i < val.size()) {
-                returnList.add(val.get(i));
-                i ++;
-            }
-            return returnList;
+//        if (!(containsVertex(key))) {
+//            return null;
+//        } else {
+        int i = 0;
+        while (i < val.size()) {
+            returnList.add(val.get(i));
+            i ++;
         }
+        return returnList;
     }
+//    }
 
     public ArrayList<T> traverse(T item) {
         ArrayList<T> result = new ArrayList<>();

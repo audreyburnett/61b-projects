@@ -21,9 +21,9 @@ public class WordNet {
             int key = Integer.parseInt(arr[0]);
             String val = arr[1];
             String[] synonyms = val.split("\\s");
-            for (int x = 0; x < synonyms.length; x++) {
-                graphWordID.addEdge(key, synonyms[x]);
-                wordToIDs.addEdge(synonyms[x], key);
+            for (String x : synonyms) {
+                graphWordID.addEdge(key, x);
+                wordToIDs.addEdge(x, key);
             }
         }
         while (!(inTwo.isEmpty())) {
@@ -53,6 +53,7 @@ public class WordNet {
         ArrayList<Integer> allIDs = new ArrayList<>();
         HashSet<String> allWords = new HashSet<>();
         for (Integer i : keyList) {
+            System.out.println(keyList);
             if ((hyponymID.containsVertex(i))) {
                 allIDs.addAll(hyponymID.traverse(i));
             }
