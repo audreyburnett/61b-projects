@@ -23,6 +23,7 @@ public class WordNet {
             String[] synonyms = val.split("\\s");
             for (int x = 0; x < synonyms.length; x++) {
                 graphWordID.addEdge(key, synonyms[x]);
+                wordToIDs.addEdge(synonyms[x], key);
             }
         }
         while (!(inTwo.isEmpty())) {
@@ -34,15 +35,15 @@ public class WordNet {
                 hyponymID.addEdge(key, Integer.parseInt(arr[x]));
             }
         }
-        while (!(inThree.isEmpty())) {
-            String string3 = inThree.readLine();
-            String[] arr = string3.split(",");
-            int val = Integer.parseInt(arr[0]);
-            String[] words = arr[1].split("\\s");
-            for (String word : words) {
-                wordToIDs.addEdge(word, val);
-            }
-        }
+//        while (!(inThree.isEmpty())) {
+//            String string3 = inThree.readLine();
+//            String[] arr = string3.split(",");
+//            int val = Integer.parseInt(arr[0]);
+//            String[] words = arr[1].split("\\s");
+//            for (String word : words) {
+//                wordToIDs.addEdge(word, val);
+//            }
+//        }
     }
 
     public ArrayList<String> hyponymIDList(String word) {
