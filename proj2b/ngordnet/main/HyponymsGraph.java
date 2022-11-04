@@ -42,18 +42,19 @@ public class HyponymsGraph<T> {
 //        return keyList;
 //    }
 
-    public ArrayList<T> getAdjList(T key) {
-        ArrayList<T> returnList = new ArrayList<T>();
+    public LinkedList<T> getAdjList(T key) {
+//        ArrayList<T> returnList = new ArrayList<T>();
         LinkedList<T> val = adjList.get(key);
 //        if (!(containsVertex(key))) {
 //            return null;
 //        } else {
-        int i = 0;
-        while (val != null && i < val.size()) {
-            returnList.add(val.get(i));
-            i++;
-        }
-        return returnList;
+//        int i = 0;
+//        while (val != null && i < val.size()) {
+//            returnList.add(val.get(i));
+//            i++;
+//        }
+//        return returnList;
+        return val;
     }
 //    }
 
@@ -64,7 +65,7 @@ public class HyponymsGraph<T> {
         while (!(fringe.isEmpty())) {
             T popped = fringe.pop();
             result.add(popped);
-            ArrayList<T> nextItems = getAdjList(popped);
+            LinkedList<T> nextItems = getAdjList(popped);
             if (nextItems != null) {
                 fringe.addAll(nextItems);
             }

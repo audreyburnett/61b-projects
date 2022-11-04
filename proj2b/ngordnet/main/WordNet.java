@@ -38,7 +38,7 @@ public class WordNet {
     }
 
     public ArrayList<String> hyponymIDList(String word) {
-        ArrayList<Integer> keyList = new ArrayList<>();
+        LinkedList<Integer> keyList = new LinkedList<>();
         keyList = wordToIDs.getAdjList(word);
 
         ArrayList<Integer> allIDs = new ArrayList<>();
@@ -80,19 +80,20 @@ public class WordNet {
 //            result.retainAll(hyponymIDList(words.get(2)));
             while (i < words.size() && words.get(i) != null) {
                 String string = words.get(i);
-                ArrayList<String> result222 = new ArrayList<>();
-                result222 = hyponymIDList(string);
+                result.retainAll(hyponymIDList(string));
+//                ArrayList<String> result222 = new ArrayList<>();
+//                result222 = hyponymIDList(string);
 //                System.out.println(hyponymIDList(words.get(i)));
-                if (result.size() < result222.size()) {
-                    result222.retainAll(result);
-                    toReturn = result222;
-                } else {
-                    result.retainAll(hyponymIDList(string));
-                    toReturn = result;
-                }
+//                if (result.size() < result222.size()) {
+//                    result222.retainAll(result);
+//                    toReturn = result222;
+//                } else {
+//                    result.retainAll(hyponymIDList(string));
+//                    toReturn = result;
+//                }
                 i += 1;
             }
-            return toReturn.toString();
+            return result.toString();
         }
         return "";
     }
