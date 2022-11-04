@@ -23,40 +23,17 @@ public class HyponymsGraph<T> {
         }
     }
 
-    //does the graph contain this vertex
     public boolean containsVertex(T key) {
         return adjList.containsKey(key);
     }
     public boolean containsVal(T val) {
         return adjList.containsValue(val);
     }
-//    public ArrayList<T> getKeyList(T word) {
-//        ArrayList<T> keyList = new ArrayList<>();
-//        for (T i : adjList.keySet()) {
-////            System.out.println("us"+adjList.get(i));
-//            if (adjList.get(i).contains(word)) {
-//                keyList.add(i);
-//            }
-//        }
-////        System.out.println(keyList);
-//        return keyList;
-//    }
 
     public LinkedList<T> getAdjList(T key) {
-//        ArrayList<T> returnList = new ArrayList<T>();
         LinkedList<T> val = adjList.get(key);
-//        if (!(containsVertex(key))) {
-//            return null;
-//        } else {
-//        int i = 0;
-//        while (val != null && i < val.size()) {
-//            returnList.add(val.get(i));
-//            i++;
-//        }
-//        return returnList;
         return val;
     }
-//    }
 
     public ArrayList<T> traverse(T item) {
         ArrayList<T> result = new ArrayList<>();

@@ -14,7 +14,6 @@ public class WordNet {
         wordToIDs = new HyponymsGraph();
         In in = new In(synsets);
         In inTwo = new In(hyponyms);
-//        In inThree = new In(synsets);
         while (!(in.isEmpty())) {
             String string1 = in.readLine();
             String[] arr = string1.split(",");
@@ -61,37 +60,14 @@ public class WordNet {
         return allWordsList;
     }
 
-    //    public ArrayList<String> listOfWords(String words) {
-//        String[] arr = words.split(", ");
-//        ArrayList<String> result = hyponymIDList(arr[0]);
-//        int i = 1;
-//        while (i < arr.length && arr[i] != null) {
-//            result.retainAll(hyponymIDList(arr[i]));
-//            i += 1;
-//        }
-//        return result;
-//    }
     public String listOfWords(List<String> words) {
         ArrayList<String> toReturn = new ArrayList<>();
         if (words != null) {
             ArrayList<String> result = hyponymIDList(words.get(0));
-//            ArrayList<String> result2 = hyponymIDList(words.get(2));
-//            System.out.println(result);
             int i = 1;
-//            result.retainAll(hyponymIDList(words.get(2)));
             while (i < words.size() && words.get(i) != null) {
                 String string = words.get(i);
                 result.retainAll(hyponymIDList(string));
-//                ArrayList<String> result222 = new ArrayList<>();
-//                result222 = hyponymIDList(string);
-//                System.out.println(hyponymIDList(words.get(i)));
-//                if (result.size() < result222.size()) {
-//                    result222.retainAll(result);
-//                    toReturn = result222;
-//                } else {
-//                    result.retainAll(hyponymIDList(string));
-//                    toReturn = result;
-//                }
                 i += 1;
             }
             return result.toString();
