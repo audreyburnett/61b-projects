@@ -43,13 +43,14 @@ public class WordNet {
 
         ArrayList<Integer> allIDs = new ArrayList<>();
         HashSet<String> allWords = new HashSet<>();
-        for (Integer i : keyList) {
-            System.out.println(keyList);
-            if ((hyponymID.containsVertex(i))) {
-                allIDs.addAll(hyponymID.traverse(i));
-            }
-            else {
-                allIDs.add(i);
+        if (keyList != null) {
+            for (Integer i : keyList) {
+                System.out.println(keyList);
+                if ((hyponymID.containsVertex(i))) {
+                    allIDs.addAll(hyponymID.traverse(i));
+                } else {
+                    allIDs.add(i);
+                }
             }
         }
         for (Integer x : allIDs) {
