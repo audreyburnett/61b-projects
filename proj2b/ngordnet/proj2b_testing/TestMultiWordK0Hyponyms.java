@@ -24,11 +24,11 @@ public class TestMultiWordK0Hyponyms {
     public void testOccurrenceAndChangeK0() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
-        List<String> words = List.of("occurrence", "change");
+        List<String> words = List.of("");
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "[alteration, change, increase, jump, leap, modification, saltation, transition]";
+        String expected = "[[]]";
         assertEquals(expected, actual);
     }
 
