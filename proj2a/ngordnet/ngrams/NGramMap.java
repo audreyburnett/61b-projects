@@ -63,11 +63,9 @@ public class NGramMap {
      *  NGramMap. This is also known as a "defensive copy". */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
         TimeSeries copy = new TimeSeries();
-        if (words.get(word).years().size() > 0) {
-            for (Integer x : words.get(word).years()) {
-                if (x >= startYear && x <= endYear) {
-                    copy.put(x, words.get(word).get(x));
-                }
+        for (Integer x : words.get(word).years()) {
+            if (x >= startYear && x <= endYear) {
+                copy.put(x, words.get(word).get(x));
             }
         }
         return copy;
