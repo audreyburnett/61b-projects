@@ -12,7 +12,7 @@ public class AutograderBuddy {
             String wordFile, String countFile,
             String synsetFile, String hyponymFile) {
 
-        WordNet wn = new WordNet(synsetFile, hyponymFile);
+        WordNet wn = new WordNet(synsetFile, hyponymFile, wordFile, countFile);
         HyponymsHandler handler = new HyponymsHandler(wn);
 
         return handler;

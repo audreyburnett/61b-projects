@@ -1,17 +1,24 @@
 package ngordnet.main;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.MaxPQ;
+import edu.princeton.cs.algs4.MinPQ;
+import ngordnet.ngrams.NGramMap;
+import ngordnet.ngrams.TimeSeries;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordNet {
     private HyponymsGraph graphWordID;
     private HyponymsGraph hyponymID;
     private HyponymsGraph wordToIDs;
+    private NGramMap ngm;
 
-    public WordNet(String synsets, String hyponyms) {
+    public WordNet(String synsets, String hyponyms, String wordsFilename, String countsFilename) {
         graphWordID = new HyponymsGraph();
         hyponymID = new HyponymsGraph();
         wordToIDs = new HyponymsGraph();
+        ngm = new NGramMap(wordsFilename, countsFilename);
         In in = new In(synsets);
         In inTwo = new In(hyponyms);
         while (!(in.isEmpty())) {
@@ -35,6 +42,27 @@ public class WordNet {
             }
         }
     }
+
+    private class Node implements Comparable<Node>{
+        private Double key;
+        private String val;
+
+        private Node(Double key, String val) {
+            this.key = key;
+            this.val = val;
+        }
+
+        public int compareTo(Node node) {
+            if (this.key < node.key) {
+                return 1;
+            } else if (this.key > node.key) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
 
     public ArrayList<String> hyponymIDList(String word) {
         LinkedList<Integer> keyList = new LinkedList<>();
@@ -73,6 +101,46 @@ public class WordNet {
             return result.toString();
         }
         return "";
+    }
+
+    public String kNotZero(List<String> words, int startYear, int endYear, int k) {
+        MaxPQ<Node> pq = new MaxPQ<>();
+        String hyponyms = listOfWords(words);
+        if (k == 0) {
+            return hyponyms;
+        } else {
+            hyponyms = hyponyms.replace("]", "");
+            hyponyms = hyponyms.replace("[", "");
+            String[] arr = hyponyms.split(", ");
+            for (String word : arr) {
+                TimeSeries wordcount = ngm.countHistory(word, startYear, endYear);
+                Double total = wordcount.data().stream().collect(Collectors.summingDouble(Double::doubleValue));
+                if (total == 0.0) {
+                    continue;
+                }
+                Node data = new Node(total, word);
+                if (pq.size() < k) {
+                    pq.insert(data);
+                } else {
+                    Double peek = pq.max().key;
+                    if (data.key < peek) {
+                        continue;
+                    } else if (data.key > peek){
+                        pq.delMax();
+                        pq.insert(data);
+                    }
+                }
+            }
+            ArrayList<String> resultArray = new ArrayList<>();
+            for (Node n : pq) {
+                if (n != null) {
+                    resultArray.add(n.val);
+                }
+            }
+            Collections.sort(resultArray);
+            String result = resultArray.toString();
+            return result;
+        }
     }
 }
 
