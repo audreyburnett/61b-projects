@@ -89,9 +89,13 @@ public class WordNet {
     }
 
     public String listOfWords(List<String> words) {
-        ArrayList<String> toReturn = new ArrayList<>();
+        ArrayList<ArrayList<String>> toReturn = new ArrayList<>();
         if (words.size() > 0 && words != null) {
             ArrayList<String> result = hyponymIDList(words.get(0));
+            if (words.get(0) == "") {
+                toReturn.add(result);
+                return toReturn.toString();
+            }
             int i = 1;
             while (i < words.size() && words.get(i) != null) {
                 String string = words.get(i);
