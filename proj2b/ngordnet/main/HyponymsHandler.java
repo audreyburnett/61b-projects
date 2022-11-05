@@ -3,7 +3,6 @@ package ngordnet.main;
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HyponymsHandler extends NgordnetQueryHandler {
