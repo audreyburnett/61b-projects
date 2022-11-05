@@ -90,7 +90,7 @@ public class WordNet {
 
     public String listOfWords(List<String> words) {
         ArrayList<String> toReturn = new ArrayList<>();
-        if (words != null) {
+        if (words.size() > 0 && words != null) {
             ArrayList<String> result = hyponymIDList(words.get(0));
             int i = 1;
             while (i < words.size() && words.get(i) != null) {
@@ -113,21 +113,23 @@ public class WordNet {
             hyponyms = hyponyms.replace("[", "");
             String[] arr = hyponyms.split(", ");
             for (String word : arr) {
-                TimeSeries wordcount = ngm.countHistory(word, startYear, endYear);
-                Double total = wordcount.data().stream().collect(Collectors.summingDouble(Double::doubleValue));
-                if (total == 0.0) {
-                    continue;
-                }
-                Node data = new Node(total, word);
-                if (pq.size() < k) {
-                    pq.insert(data);
-                } else {
-                    Double peek = pq.max().key;
-                    if (data.key < peek) {
+                if (word.length() > 0) {
+                    TimeSeries wordcount = ngm.countHistory(word, startYear, endYear);
+                    Double total = wordcount.data().stream().collect(Collectors.summingDouble(Double::doubleValue));
+                    if (total == 0.0) {
                         continue;
-                    } else if (data.key > peek){
-                        pq.delMax();
+                    }
+                    Node data = new Node(total, word);
+                    if (pq.size() < k) {
                         pq.insert(data);
+                    } else {
+                        Double peek = pq.max().key;
+                        if (data.key < peek) {
+                            continue;
+                        } else if (data.key > peek) {
+                            pq.delMax();
+                            pq.insert(data);
+                        }
                     }
                 }
             }
