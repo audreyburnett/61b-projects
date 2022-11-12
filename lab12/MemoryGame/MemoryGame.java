@@ -58,7 +58,11 @@ public class MemoryGame {
 
     public String generateRandomString(int n) {
         //TODO: Generate random string of letters of length n
-        return null;
+        String return = "";
+        for (int i = 0; i < n; i ++) {
+            return = return + CHARACTERS[this.rand.nextInt()];
+        }
+        return string;
     }
 
     public void drawFrame(String s) {
@@ -79,21 +83,45 @@ public class MemoryGame {
 
     public void flashSequence(String letters) {
         //TODO: Display each character in letters, making sure to blank the screen between letters
+        for (int i = 0; i < letters.length(); i ++) {
+            StdDraw.show((letters.charAt(i)));
+            StdDraw.pause(1);
+            StdDraw.clear();
+            StdDraw.pause(0.5);
+        }
     }
 
     public String solicitNCharsInput(int n) {
         //TODO: Read n letters of player input
-        return null;
+        String result = "";
+        for (int i = 0; i < n; i ++) {
+            if (StdDraw.hasNextKeyTyped()) {
+                result = result + StdDraw.nextKeyTyped();
+            } else {
+                break;
+            }
+        }
+        return result;
     }
 
     public void startGame() {
         //TODO: Set any relevant variables before the game starts
         this.gameOver = false;
-
+        this.round = 1;
         //TODO: Establish Engine loop
         while (!gameOver) {
-            drawFrame("You should implement this game!");
-            StdDraw.pause(1000);
+            drawFrame("Round: " + this.round);
+            String random = generateRandomString(i);
+            flashSequence(random);
+            StdDraw.pause(10);
+            if (solicitNCharsInput(this.round).length() == this.round) {
+                if (solicitNCharsInput(this.round) == random) {
+                    this.round += 1;
+                    continue;
+                } else {
+                    this.gameOver = true;
+                }
+
         }
 
         this.drawFrame("Game Over! You made it to round: " + this.round);
