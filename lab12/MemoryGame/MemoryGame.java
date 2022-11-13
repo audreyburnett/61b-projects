@@ -93,7 +93,19 @@ public class MemoryGame {
         //TODO: If the game is not over, display encouragement, and let the user know if they
         // should be typing their answer or watching for the next round.
 
-
+        if (!gameOver) {
+            Font fontsmall = new Font("Monaco", Font.BOLD, 15);
+            StdDraw.setFont(fontsmall);
+            StdDraw.line(0, height - 2, width, height - 2);
+            StdDraw.textLeft(0, height - 1, "Round: " + this.round);
+            if (playerTurn) {
+                StdDraw.text(width/2, height - 1, "Type!");
+            } else {
+                StdDraw.text(width / 2, height - 1, "Watch!");
+            }
+            String encouragement = ENCOURAGEMENT[rand.nextInt(ENCOURAGEMENT.length)];
+            StdDraw.textRight(width, height - 1, encouragement);
+        }
         StdDraw.show();
     }
 
@@ -110,13 +122,18 @@ public class MemoryGame {
     public String solicitNCharsInput(int n) {
         //TODO: Read n letters of player input
         String result = "";
-        for (int i = 0; i < n; i++) {
+        while (n > 0) {
             if (StdDraw.hasNextKeyTyped()) {
                 result = result + StdDraw.nextKeyTyped();
-            } else {
-                break;
+                drawFrame(result);
+                n -= 1;
             }
         }
+//        for (int i = 0; i < n; i++) {
+//            if (StdDraw.hasNextKeyTyped()) {
+//                result = result + StdDraw.nextKeyTyped();
+//            }
+//        }
         return result;
     }
 
@@ -126,22 +143,24 @@ public class MemoryGame {
         this.round = 1;
         //TODO: Establish Engine loop
         while (!gameOver) {
+            playerTurn = false;
+            StdDraw.pause(1000);
             drawFrame("Round: " + this.round);
+            StdDraw.pause(1000);
             String random = generateRandomString(this.round);
+//            System.out.println(random);
             flashSequence(random);
-            StdDraw.pause(3000);
-            if (solicitNCharsInput(this.round).length() == this.round) {
-                if (solicitNCharsInput(this.round) == random) {
-                    this.round += 1;
-                    continue;
-                } else {
-                    this.gameOver = true;
-                }
-
+            playerTurn = true;
+            drawFrame("");
+            String user = solicitNCharsInput(this.round);
+            if (user.equals(random)) {
+                this.round += 1;
+            } else {
+                this.gameOver = true;
+                break;
             }
-
-            this.drawFrame("Game Over! You made it to round: " + this.round);
         }
-
+        this.drawFrame("Game Over! You made it to round: " + this.round);
+        }
     }
-}
+
