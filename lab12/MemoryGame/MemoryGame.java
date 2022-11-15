@@ -1,6 +1,5 @@
 package MemoryGame;
 
-import byowTools.RandomUtils;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Color;
@@ -114,7 +113,7 @@ public class MemoryGame {
         for (int i = 0; i < letters.length(); i++) {
             drawFrame(Character.toString(letters.charAt(i)));
             StdDraw.pause(1000);
-            StdDraw.clear(Color.BLACK);
+            drawFrame("");
             StdDraw.pause(500);
         }
     }

@@ -2,10 +2,13 @@ package byow.Core;
 
 import byow.TileEngine.TETile;
 import byow.TileEngine.Tileset;
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class World {
-    RandomUtils rando = new RandomUtils();
+    Random rando = new Random();
     public World() {
 
     }
@@ -27,7 +30,7 @@ public class World {
     }
 
     public void hallWay(int x, int y, int length, int width, TETile[][] world) {
-        int hallWayWidth = rando.uniform(1, 3);
+        int hallWayWidth = RandomUtils.uniform(rando, 3);
         buildRoom(x, y, length, width, world);
     }
 
